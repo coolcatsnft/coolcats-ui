@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useState } from "react";
 import { BaseCanvasConfig } from "../canvasUtils";
-import { AvatarView, CanvasConfig, Trait } from "../Avatar/types";
+import { AvatarView, CanvasConfig } from "../Avatar/types";
 import LayeredCanvas from "../LayeredCanvas";
 import { createAvatarCanvasLayers } from "../Avatar/utils";
 
