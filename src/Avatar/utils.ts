@@ -11,7 +11,6 @@ const BODY_OVERRIDES = [
 const TIGERS = ['6455', '8968', '1146', '4687', '6054', '6250', '2477', '6688', '526', '1718', '4960', '6749', '4717', '4952', '6169', '6635', '9607', '9882', '1544', '3611', '5843', '6482', '1180', '1233', '5416', '7107', '3772', '4178', '8645', '8170', '2980', '3019', '2172', '2156', '8579', '1515', '1977', '7262', '8815', '611', '6954', '1279', '6967', '8084', '5735', '3623', '5949', '6705', '3213', '8969', '6136', '2179', '7460', '1451', '9254', '1785', '5708', '5617', '4735', '5249'];
 const TRIBAL = ['4687', '4483', '4734', '4782', '4932', '4974', '4975', '4216', '3979', '1867', '4406', '4418', '4369', '4152', '4050', '4089', '4075', '5036', '5120', '5164', '319', '60', '377', '279', '889', '1500', '1491', '728', '1146', '607', '960', '658', '1269', '1249', '830', '1329', '1609', '1559', '1801', '1873', '5019', '5192', '5184', '5228', '5521', '5499', '4976', '5421', '749', '1509', '5638', '6007', '6063', '6165', '6245', '5750', '5830', '5842', '5855', '5911', '312', '1504', '3612', '3005', '3059', '3117', '3146', '3172', '3184', '3191', '3322', '3476', '3491', '3544', '3568', '3604', '2306', '2463', '2581', '2615', '10', '521', '4271', '4972'];
 const SKELETON = ['4668', '4517', '4802', '4955', '974', '2132', '4245', '4336', '2075', '4277', '1162', '1735', '4058', '1354', '5343', '5518', '5763', '6033', '6183', '213', '292', '1927', '1483', '1113', '1510', '1724', '747', '1632', '862', '484', '532', '1093', '1017', '1200', '1234', '1356', '1362', '117', '141', '1431', '3255', '3296', '3354', '3448', '3480', '3482', '3547', '3559', '2361', '2428', '2483', '2612', '2790', '2907', '3831', '776', '1834', '1159', '362'];
-const SCHOLARS = ['6229', '5636', '5694', '5696', '5718', '5772', '5776', '5789', '5790', '5805', '5825', '5858', '5958', '5964', '5983', '5986', '6015', '6094', '6097', '6105', '6114', '6138', '6157', '6176', '6185'];
 
 export function applyDefaultWeights(trait: Trait) {
   return {
@@ -121,11 +120,17 @@ export function createAvatarCanvasLayers(
   const isTiger = typeof tokenId === 'string' && TIGERS.includes(tokenId) && type === Avatar.CAT;
   const isTribal = typeof tokenId === 'string' && TRIBAL.includes(tokenId) && type === Avatar.SHADOWWOLF;
   const isSkeleton = typeof tokenId === 'string' && SKELETON.includes(tokenId) && type === Avatar.SHADOWWOLF;
-  const isScholar = typeof tokenId === 'string' && SCHOLARS.find(s => s === tokenId) && type === Avatar.SHADOWWOLF;
   const hasShirt = traits.find(t => t.traitType === TraitType.SHIRT);
   const hasShoes = traits.find(t => t.traitType === TraitType.SHOES && t.name?.toLowerCase() !== 'no shoes');
   const hasFace = traits.find(t => t.traitType === TraitType.FACE && t.name?.toLowerCase() !== 'no face');
-  const hasHat = traits.find(t => t.traitType === TraitType.HAT);
+  const hasHat = traits.find(t => t.traitType === TraitType.HAT && t.name?.toLowerCase() !== 'no hat');
+
+  const frontImages = traits.filter(
+    t => t.name.toLowerCase().endsWith('front') && t.images.length > 0
+  ).map(t => ({
+    uri: t.images[0].uri.replace('front', 'back'),
+    weight: 100
+  }))
 
   const bodyImages = [
     isTiger ? { uri: 'tiger.png', weight: 100 } : undefined
@@ -175,8 +180,12 @@ export function createAvatarCanvasLayers(
         weight: 5
       },
       {
-        uri: 'sw-head.png',
+        uri: 'sw-ears.png',
         weight: 6
+      },
+      {
+        uri: 'sw-head.png',
+        weight: 7
       }
     ] : undefined
   ).concat(
@@ -213,6 +222,8 @@ export function createAvatarCanvasLayers(
         weight: 1
       }
     ] : undefined
+  ).concat(
+    frontImages
   ).map((b, i) => {
     if (view === AvatarView.HEAD && type === Avatar.CAT) {
       return (
@@ -223,7 +234,7 @@ export function createAvatarCanvasLayers(
       )
     }
     if (view === AvatarView.HEAD && type === Avatar.SHADOWWOLF) {
-      if (b?.uri?.includes('head') || b?.uri?.includes('cheeks')) {
+      if (b?.uri?.includes('head') || b?.uri?.includes('cheeks') || b?.uri?.includes('ears')) {
         return b;
       }
 
@@ -256,17 +267,6 @@ export function createAvatarCanvasLayers(
     images: bodyImages,
     rules: []
   }
-  
-  const scholarSkin = isScholar && view !== AvatarView.HEAD ? {
-    type,
-    view: AvatarView.FULL,
-    traitType: TraitType.SHIRT,
-    name: 'scholar',
-    weight: 6.8,
-    rarity: TraitRarity.EPIC,
-    images: [{ uri: `${tokenId}.png`, weight: 100 }],
-    rules: []
-  } : undefined;
 
   // Add body trait
   const traitsIncludingBody = traits.concat(
@@ -280,8 +280,6 @@ export function createAvatarCanvasLayers(
       ...LEGENDARY_OVERRIDE_TRAIT,
       traitType: TraitType.BACKGROUND
     }] : []
-  ).filter(t => scholarSkin ? ![TraitType.SHIRT, TraitType.HAT].includes(t.traitType) : true).concat(
-    scholarSkin ? [scholarSkin] : []
   ).filter(
     t => view === AvatarView.HEAD ? [TraitType.HAT, TraitType.FACE, TraitType.BODY, TraitType.BACKGROUND, TraitType.EFFECT, TraitType.BORDER].includes(t.traitType) : true
   ).map(t => {
@@ -296,13 +294,8 @@ export function createAvatarCanvasLayers(
       }
     }
 
-    if (isScholar && t.traitType === TraitType.FACE) {
-      return {
-        ...t,
-        weight: 6.6
-      }
-    }
-
+    return t;
+  }).map(t => {
     if (type === Avatar.CAT && t.traitType === TraitType.BODY) {
       return {
         ...t,
@@ -318,6 +311,8 @@ export function createAvatarCanvasLayers(
       }
     }
 
+    return t;
+  }).map(t => {
     if (type === Avatar.EXPLORER && t.traitType === TraitType.BODY) {
       return {
         ...t,
@@ -333,22 +328,25 @@ export function createAvatarCanvasLayers(
       }
     }
 
+    return t;
+  }).map(t => {
     if (type === Avatar.SHADOWWOLF && t.traitType === TraitType.BODY) {
+      const invalids = [] as string[];
+      if (hasShirt) {
+        invalids.push('sw-shoulders.png');
+      }
+      if (hasHat) {
+        invalids.push('sw-ears.png');
+      }
+      if (hasShoes) {
+        invalids.push('sw-feet.png');
+      }
+
       return {
         ...t,
         images: (t.images || []).filter(
           (img: TraitImage) => {
-            if (hasShirt && hasShoes) {
-              return img.uri !== 'sw-shoulders.png' && img.uri !== 'sw-feet.png';
-            }
-            if (hasShirt) {
-              return img.uri !== 'sw-shoulders.png';
-            }
-            if (hasShoes) {
-              return img.uri !== 'sw-feet.png'
-            }
-
-            return true;
+            return !invalids.includes(img.uri);
           }
         )
       }
