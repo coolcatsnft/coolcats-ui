@@ -80,7 +80,7 @@ export function getBodyImages(
   const isTiger = typeof tokenId === 'string' && TIGERS.includes(tokenId) && type === Avatar.CAT;
   const isTribal = typeof tokenId === 'string' && TRIBAL.includes(tokenId) && type === Avatar.SHADOWWOLF;
   const isSkeleton = typeof tokenId === 'string' && SKELETON.includes(tokenId) && type === Avatar.SHADOWWOLF;
-  const hasBorder = traits.find(t => t.traitType === TraitType.BORDER && t.name?.toLowerCase() !== 'no noborder');
+  const hasBorder = traits.find(t => t.traitType === TraitType.BORDER && t.name?.toLowerCase() !== 'no border');
 
   const frontImages = traits.filter(
     t => t.name.toLowerCase().endsWith('front') && t.images.length > 0
