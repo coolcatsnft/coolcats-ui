@@ -246,3 +246,223 @@ const TestTemplate2: StoryFn<typeof AvatarCanvas> = (args) => {
   )
 }
 export const WolfTest2 = TestTemplate2.bind({});
+
+const TestTemplate3: StoryFn<typeof AvatarCanvas> = (args) => {
+  const traits = Wolftraits.concat(
+    [
+      {
+        "id": 248,
+        "name": "scarf red",
+        "rarity": 1,
+        "type": "SHADOWWOLF",
+        "weight": null,
+        "traitType": "SHIRT",
+        "additional": 0,
+        "displayName": "Scarf red",
+        "tokenId": null,
+        "fromTokenId": null,
+        "toTokenId": null,
+        "contract": null,
+        "boundTo": {
+          "token_id": 1636,
+          "token_type": "SHADOWWOLF"
+        },
+        "images": [
+          {
+            "uri": "scarf-red.png"
+          }
+        ],
+        "rules": []
+      },
+      {
+        "id": 389,
+        "name": "joy",
+        "rarity": 1,
+        "type": "SHADOWWOLF",
+        "weight": null,
+        "traitType": "FACE",
+        "additional": 0,
+        "displayName": "Joy",
+        "tokenId": null,
+        "fromTokenId": null,
+        "toTokenId": null,
+        "contract": null,
+        "boundTo": {
+          "token_id": 1636,
+          "token_type": "SHADOWWOLF"
+        },
+        "images": [
+          {
+            "uri": "joy.png"
+          }
+        ],
+        "rules": []
+      },
+      {
+        "id": 430,
+        "name": "no border",
+        "rarity": 1,
+        "type": "SHADOWWOLF",
+        "weight": -2,
+        "traitType": "BORDER",
+        "additional": 1,
+        "displayName": "No Border",
+        "tokenId": null,
+        "fromTokenId": null,
+        "toTokenId": null,
+        "contract": null,
+        "displayImage": {
+          "uri": "/images/avatar/none.svg"
+        },
+        "images": [
+          {
+            "uri": "transparent.png"
+          }
+        ],
+        "rules": []
+      },
+      {
+        "id": 709,
+        "name": "no accessory",
+        "rarity": 0,
+        "type": "SHADOWWOLF",
+        "weight": -2,
+        "traitType": "ACCESSORY",
+        "additional": 1,
+        "displayName": "No Accessory",
+        "tokenId": null,
+        "fromTokenId": null,
+        "toTokenId": null,
+        "contract": null,
+        "displayImage": {
+          "uri": "/images/avatar/none.svg"
+        },
+        "images": [
+          {
+            "uri": "transparent.png"
+          }
+        ],
+        "rules": []
+      },
+      {
+        "id": 711,
+        "name": "no skin",
+        "rarity": 0,
+        "type": "SHADOWWOLF",
+        "weight": -2,
+        "traitType": "SKIN",
+        "additional": 1,
+        "displayName": "Hide Skin",
+        "tokenId": null,
+        "fromTokenId": null,
+        "toTokenId": null,
+        "contract": null,
+        "displayImage": {
+          "uri": "/images/avatar/none.svg"
+        },
+        "images": [
+          {
+            "uri": "transparent.png"
+          }
+        ],
+        "rules": []
+      },
+      {
+        "id": 754,
+        "name": "labcoat",
+        "rarity": 2,
+        "type": "SHADOWWOLF",
+        "weight": null,
+        "traitType": "SHOES",
+        "additional": 0,
+        "displayName": "Black Sneakers",
+        "tokenId": 95,
+        "fromTokenId": null,
+        "toTokenId": null,
+        "contract": {
+          "tokenId": 95
+        },
+        "images": [
+          {
+            "uri": "labcoat-shoes.png"
+          }
+        ],
+        "rules": []
+      },
+      {
+        "id": 843,
+        "name": "buttondown blue flannel",
+        "rarity": 1,
+        "type": "SHADOWWOLF",
+        "weight": null,
+        "traitType": "PANTS",
+        "additional": 0,
+        "displayName": "Dark Grey Cuffed Pants",
+        "tokenId": 6,
+        "fromTokenId": null,
+        "toTokenId": null,
+        "contract": {
+          "tokenId": 6
+        },
+        "images": [
+          {
+            "uri": "buttondown-blue-flannel-pants.png"
+          }
+        ],
+        "rules": []
+      },
+      {
+        "id": 868,
+        "name": "fracture",
+        "rarity": 1,
+        "type": "SHADOWWOLF",
+        "weight": null,
+        "traitType": "BACKGROUND",
+        "additional": 1,
+        "displayName": "Fracture",
+        "tokenId": null,
+        "fromTokenId": null,
+        "toTokenId": null,
+        "contract": null,
+        "images": [
+          {
+            "uri": "fracture.png"
+          }
+        ],
+        "rules": []
+      },
+      {
+        "id": 995,
+        "name": "wraith",
+        "rarity": 4,
+        "type": "SHADOWWOLF",
+        "weight": null,
+        "traitType": "HAT",
+        "additional": 0,
+        "displayName": "Wraith Head",
+        "tokenId": 163,
+        "fromTokenId": null,
+        "toTokenId": null,
+        "contract": {
+          "tokenId": 163
+        },
+        "images": [
+          {
+            "uri": "wraith-head-sw.png"
+          }
+        ],
+        "rules": []
+      }
+    ] as any
+  );
+  
+  return (
+    <AvatarCanvas 
+      {...args}
+      traits={traits}
+      height={400}
+      width={400}
+    />
+  )
+}
+export const WolfTest3 = TestTemplate3.bind({});

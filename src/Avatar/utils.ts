@@ -260,7 +260,7 @@ export function createAvatarCanvasLayers(
   const hasShoes = traits.find(t => t.traitType === TraitType.SHOES && t.name?.toLowerCase() !== 'no shoes');
   const hasFace = traits.find(t => t.traitType === TraitType.FACE && t.name?.toLowerCase() !== 'no face');
   const hasHat = traits.find(t => t.traitType === TraitType.HAT && t.name?.toLowerCase() !== 'no hat');
-  const hasBorder = traits.find(t => t.traitType === TraitType.BORDER && t.name?.toLowerCase() !== 'no noborder');
+  const hasBorder = traits.find(t => t.traitType === TraitType.BORDER && t.name?.toLowerCase() !== 'no border');
   const bodyImages = getBodyImages(type, view, traits, tokenId);
 
   const body = {
@@ -286,7 +286,13 @@ export function createAvatarCanvasLayers(
       traitType: TraitType.BACKGROUND
     }] : []
   ).filter(
-    t => view === AvatarView.HEAD && !hasBorder ? [TraitType.HAT, TraitType.FACE, TraitType.BODY, TraitType.BACKGROUND, TraitType.EFFECT, TraitType.BORDER].includes(t.traitType) : true
+    t => {
+      if (view === AvatarView.HEAD && !hasBorder) {
+        return [TraitType.HAT, TraitType.FACE, TraitType.BODY, TraitType.BACKGROUND, TraitType.EFFECT, TraitType.BORDER].includes(t.traitType);
+      }
+
+      return true;
+    }
   ).map(t => {
     // Apply special rules for upside down cat...!
     if (type === Avatar.CAT && tokenId === '500' && ![TraitType.BACKGROUND, TraitType.BODY].includes(t.traitType)) {
@@ -458,7 +464,10 @@ export function createAvatarCanvasLayers(
       }
     }
 
-    if (view === AvatarView.FULL && trait.name.includes('ghost tail') && traits.find(t => t.name.includes('mechanical'))) {
+    if (view === AvatarView.FULL 
+      && trait.name.includes('ghost tail') 
+      && traits.find(t => t.name.includes('mechanical'))
+    ) {
       return {
         ...trait,
         weight: -1
