@@ -907,7 +907,7 @@ export const WolfArgs = {
     },
     skin: {
       control: 'select',
-      options: ['', 'mechanical-x-ray-suit-sw']
+      options: ['', 'mechanical-x-ray-suit-sw', 'tribal', 'bones']
     },
     baseUrl: {
       control: 'select',

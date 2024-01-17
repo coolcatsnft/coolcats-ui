@@ -59,22 +59,10 @@ function evaluateRule(
   }, trait);
 }
 
-export function evaluateTraitMutateAllRules(trait: Trait, traits: Trait[], width: number, height: number, tokenId?: string, type?: Avatar, view?: AvatarView, ruleType?: TraitRuleType) {
-  const rules = traits.reduce((rules: TraitRule[], trait: Trait) => {
-    return rules.concat((trait?.rules || []).filter(r => r.type === (ruleType || TraitRuleType.MUTATE_ALL)));
-  }, []);
-
-  return evaluateRule(rules, trait, traits, width, height, tokenId, type, view);
-}
-
 export function evaluateTraitMutateRules(trait: Trait, traits: Trait[], width: number, height: number) {
   const rules = (trait.rules || []).filter(r => r.type === TraitRuleType.MUTATE);
   
   return evaluateRule(rules, trait, traits, width, height);
-}
-
-export function evaluateTraitMutateLayersRules(traits: Trait[], width: number, height: number, tokenId?: string, type?: Avatar, view?: AvatarView) {
-  return traits.map(t => evaluateTraitMutateAllRules(t, traits, height, width, tokenId, type, view, TraitRuleType.MUTATE_LAYERS))
 }
 
 export function applyWeights(traitA: Trait, traitB: Trait) {
@@ -83,47 +71,16 @@ export function applyWeights(traitA: Trait, traitB: Trait) {
   return weightA - weightB;
 }
 
-/**
- * @param config 
- * @returns {CanvasLayer[]}
- */
-export function createAvatarCanvasLayers(
-  config: CreateAvatarTraitsConfig
-) {
-  const {
-    view,
-    type,
-    tokenId,
-    traits, 
-    width, 
-    height,
-    baseUrl
-  } = config;
-
-  const LEGENDARY_OVERRIDE = BODY_OVERRIDES.find(o => tokenId ? o.split('_').slice(0, 2).join('_') === `${type || ''}_${tokenId || ''}` : false);
-  const LEGENDARY_OVERRIDE_TRAIT = {
-    type: type || Avatar.CAT,
-    view: AvatarView.FULL,
-    traitType: TraitType.BODY,
-    name: (LEGENDARY_OVERRIDE || '___').split('_')[2],
-    rarity: TraitRarity.LEGENDARY,
-    images: [
-      {
-        uri: `${(LEGENDARY_OVERRIDE || '___').split('_')[1]}.png`
-      }
-    ],
-    weight: type === Avatar.SHADOWWOLF ? 6.8 : undefined,
-    rules: []
-  } as Trait;
-
-  const isUpsideDown = LEGENDARY_OVERRIDE === 'CAT_500_Upsidedown';
+export function getBodyImages(
+  type: Avatar,
+  view: AvatarView,
+  traits: Trait[],
+  tokenId?: string
+): TraitImage[] {
   const isTiger = typeof tokenId === 'string' && TIGERS.includes(tokenId) && type === Avatar.CAT;
   const isTribal = typeof tokenId === 'string' && TRIBAL.includes(tokenId) && type === Avatar.SHADOWWOLF;
   const isSkeleton = typeof tokenId === 'string' && SKELETON.includes(tokenId) && type === Avatar.SHADOWWOLF;
-  const hasShirt = traits.find(t => t.traitType === TraitType.SHIRT);
-  const hasShoes = traits.find(t => t.traitType === TraitType.SHOES && t.name?.toLowerCase() !== 'no shoes');
-  const hasFace = traits.find(t => t.traitType === TraitType.FACE && t.name?.toLowerCase() !== 'no face');
-  const hasHat = traits.find(t => t.traitType === TraitType.HAT && t.name?.toLowerCase() !== 'no hat');
+  const hasBorder = traits.find(t => t.traitType === TraitType.BORDER && t.name?.toLowerCase() !== 'no noborder');
 
   const frontImages = traits.filter(
     t => t.name.toLowerCase().endsWith('front') && t.images.length > 0
@@ -132,7 +89,7 @@ export function createAvatarCanvasLayers(
     weight: 100
   }))
 
-  const bodyImages = [
+  return [
     isTiger ? { uri: 'tiger.png', weight: 100 } : undefined
   ].concat(
     isTribal ? [{ uri: 'tribal.png', weight: 100 }] : undefined
@@ -225,6 +182,10 @@ export function createAvatarCanvasLayers(
   ).concat(
     frontImages
   ).map((b, i) => {
+    if (hasBorder) {
+      return b;
+    }
+
     if (view === AvatarView.HEAD && type === Avatar.CAT) {
       return (
         i === 0 ? {
@@ -233,6 +194,7 @@ export function createAvatarCanvasLayers(
         } : undefined
       )
     }
+
     if (view === AvatarView.HEAD && type === Avatar.SHADOWWOLF) {
       if (b?.uri?.includes('head') || b?.uri?.includes('cheeks') || b?.uri?.includes('ears')) {
         return b;
@@ -240,6 +202,7 @@ export function createAvatarCanvasLayers(
 
       return undefined;
     }
+
     if (view === AvatarView.HEAD && type === Avatar.EXPLORER) {
       if (b?.uri?.includes('face')) {
         return b;
@@ -257,6 +220,48 @@ export function createAvatarCanvasLayers(
 
     return b;
   }).filter(i => i) as TraitImage[];
+}
+
+/**
+ * @param config 
+ * @returns {CanvasLayer[]}
+ */
+export function createAvatarCanvasLayers(
+  config: CreateAvatarTraitsConfig
+) {
+  const {
+    view,
+    type,
+    tokenId,
+    traits, 
+    width, 
+    height,
+    baseUrl
+  } = config;
+
+  const LEGENDARY_OVERRIDE = BODY_OVERRIDES.find(o => tokenId ? o.split('_').slice(0, 2).join('_') === `${type || ''}_${tokenId || ''}` : false);
+  const LEGENDARY_OVERRIDE_TRAIT = {
+    type: type || Avatar.CAT,
+    view: AvatarView.FULL,
+    traitType: TraitType.BODY,
+    name: (LEGENDARY_OVERRIDE || '___').split('_')[2],
+    rarity: TraitRarity.LEGENDARY,
+    images: [
+      {
+        uri: `${(LEGENDARY_OVERRIDE || '___').split('_')[1]}.png`
+      }
+    ],
+    weight: type === Avatar.SHADOWWOLF ? 6.8 : undefined,
+    rules: []
+  } as Trait;
+
+  const isUpsideDown = LEGENDARY_OVERRIDE === 'CAT_500_Upsidedown';
+  const hasShirt = traits.find(t => t.traitType === TraitType.SHIRT);
+  const hasShoes = traits.find(t => t.traitType === TraitType.SHOES && t.name?.toLowerCase() !== 'no shoes');
+  const hasFace = traits.find(t => t.traitType === TraitType.FACE && t.name?.toLowerCase() !== 'no face');
+  const hasHat = traits.find(t => t.traitType === TraitType.HAT && t.name?.toLowerCase() !== 'no hat');
+  const hasBorder = traits.find(t => t.traitType === TraitType.BORDER && t.name?.toLowerCase() !== 'no noborder');
+  const bodyImages = getBodyImages(type, view, traits, tokenId);
 
   const body = {
     type,
@@ -281,7 +286,7 @@ export function createAvatarCanvasLayers(
       traitType: TraitType.BACKGROUND
     }] : []
   ).filter(
-    t => view === AvatarView.HEAD ? [TraitType.HAT, TraitType.FACE, TraitType.BODY, TraitType.BACKGROUND, TraitType.EFFECT, TraitType.BORDER].includes(t.traitType) : true
+    t => view === AvatarView.HEAD && !hasBorder ? [TraitType.HAT, TraitType.FACE, TraitType.BODY, TraitType.BACKGROUND, TraitType.EFFECT, TraitType.BORDER].includes(t.traitType) : true
   ).map(t => {
     // Apply special rules for upside down cat...!
     if (type === Avatar.CAT && tokenId === '500' && ![TraitType.BACKGROUND, TraitType.BODY].includes(t.traitType)) {
@@ -365,7 +370,16 @@ export function createAvatarCanvasLayers(
   
   rules.forEach(r => {
     evaldTraits = evaldTraits.map(
-      t => evaluateRule([r], t, evaldTraits, width || CANVAS_WIDTH, height || CANVAS_HEIGHT, tokenId, type, view)
+      t => evaluateRule(
+        [r],
+        t,
+        evaldTraits,
+        width || CANVAS_WIDTH,
+        height || CANVAS_HEIGHT,
+        tokenId,
+        type,
+        view
+      )
     )
   });
 
@@ -451,7 +465,9 @@ export function createAvatarCanvasLayers(
       }
     }
 
-    if (view === AvatarView.HEAD && trait.traitType !== TraitType.BACKGROUND && trait.traitType !== TraitType.BORDER
+    if (view === AvatarView.HEAD 
+      && !hasBorder
+      && ![TraitType.BACKGROUND, TraitType.BORDER].includes(trait.traitType)
       && typeof trait.offsetX !== 'number'  
     ) {
       return {

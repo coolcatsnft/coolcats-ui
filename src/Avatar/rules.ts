@@ -278,14 +278,21 @@ export const CHRISTMAS_CARD_PLACEMENT = (trait: Trait, traits: Trait[], width: n
   }
 };
 
-export const MILK_CHUG = (trait: Trait, traits: Trait[], width: number, height: number, tokenId?: string, type?: Avatar) => {
+export const MILK_CHUG = (
+  trait: Trait,
+  traits: Trait[],
+  width: number,
+  height: number,
+  tokenId?: string,
+  type?: Avatar,
+  view?: AvatarView
+) => {
   if (trait.traitType === TraitType.BORDER || trait.traitType === TraitType.BACKGROUND) {
     return trait;
   }
 
   if (
     trait.traitType === TraitType.SIDEKICK 
-    || trait.traitType === TraitType.PANTS 
     || trait.traitType === TraitType.ACCESSORY 
     || trait.traitType === TraitType.SHOES
   ) {

@@ -55,6 +55,30 @@ const BlueCatTemplate: StoryFn<typeof AvatarCanvas> = (args) => {
 
 export const BlueCat = BlueCatTemplate.bind({});
 
+const TigerTemplate: StoryFn<typeof AvatarCanvas> = (args) => {
+  return (
+    <AvatarCanvas 
+      {...args}
+      type={Avatar.CAT}
+      traits={BlueCatTraits.concat([{
+        type: Avatar.CAT,
+        view: args.view,
+        traitType: TraitType.SKIN,
+        name: 'tiger',
+        rarity: TraitRarity.COMMON,
+        images: [
+          {
+            uri: 'tiger.png'
+          }
+        ],
+        rules: []
+      }])}
+    />
+  )
+}
+
+export const TigerCat = TigerTemplate.bind({});
+
 const WolfTemplate: StoryFn<typeof AvatarCanvas> = (args) => {
   return (
     <AvatarCanvas 
