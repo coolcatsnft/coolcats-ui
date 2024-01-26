@@ -7,6 +7,7 @@ export type BaseCanvasConfig = PropsWithChildren & {
   reset?: boolean;
   bordered?: boolean;
   background?: string;
+  crossHairs?: boolean;
 }
 
 export type CanvasConfig = BaseCanvasConfig & {
@@ -312,7 +313,7 @@ export const generateLayeredCanvas = (
   canvas?: HTMLCanvasElement,
   createCanvas?: Function,
 ) => {
-  const { width, height, layers, debug, background } = config;
+  const { width, height, layers, debug, background, crossHairs } = config;
   const parentBackground = layers.find(l => l.parentBackground);
   const stickerEffect = layers.find(l => l.stickerSpecial);
   const renderedLayers = [] as RenderedCanvasLayer[];
@@ -588,6 +589,38 @@ export const generateLayeredCanvas = (
   renderedLayers.forEach(r => {
     removeCanvas(r.canvas);
   });
+
+  if (crossHairs) {
+    ctx.strokeStyle = 'red';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(canvas?.height, canvas?.width);
+    ctx.stroke();
+  
+    ctx.beginPath();
+    ctx.moveTo(0, canvas?.width);
+    ctx.lineTo(canvas?.height, 0);
+    ctx.stroke();
+  
+    ctx.beginPath();
+    ctx.moveTo((canvas?.width || 0) / 2, 0);
+    ctx.lineTo((canvas?.width || 0) / 2, canvas?.height);
+    ctx.stroke();
+  
+    ctx.beginPath();
+    ctx.moveTo(0, (canvas?.height || 0) / 2);
+    ctx.lineTo(canvas?.width, (canvas?.height || 0) / 2);
+    ctx.stroke();
+
+    const centerX = ((canvas?.width || 0)) / 2;
+    const centerY = ((canvas?.height || 0)) / 2;
+    const radius = ((canvas?.height || 0)) / 2;
+    
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+    ctx.stroke();
+  }
 
   return layeredCanvas;
 }

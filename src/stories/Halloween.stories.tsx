@@ -21,6 +21,7 @@ const pantsTraits = [
 const hatTraits = [
   '',
   'bucket-hat-green',
+  'x',
   'wraith-head-cc',
   'witch-hat-cc',
   'vampire-bats-cc',
@@ -132,7 +133,7 @@ export default {
     },
     view: {
       control: 'select',
-      options: ['FULL', 'FRONT']
+      options: ['FULL', 'FRONT', 'HEAD']
     },
     face: {
       control: 'select',

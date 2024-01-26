@@ -481,10 +481,10 @@ export function createAvatarCanvasLayers(
     ) {
       return {
         ...trait,
-        offsetY: isUpsideDown ? ((height || CANVAS_HEIGHT) * -1.1) : ((height || CANVAS_HEIGHT) * 0.05),
-        offsetX: ((width || CANVAS_WIDTH) * -1) / 1.67,
-        width: (width || CANVAS_WIDTH) * 2.2,
-        height: (height || CANVAS_HEIGHT) * 2.2
+        offsetY: isUpsideDown ? ((height || CANVAS_HEIGHT) * -1.1) : ((height || CANVAS_HEIGHT) * 0.03),
+        offsetX: ((width || CANVAS_WIDTH) * -1) / 1.48,
+        width: (width || CANVAS_WIDTH) * 2.35,
+        height: (height || CANVAS_HEIGHT) * 2.35
       }
     }
 
