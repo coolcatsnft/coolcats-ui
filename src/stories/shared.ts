@@ -999,7 +999,10 @@ export function generateWolfTraits(args: any) {
             uri: `${shirt.toLowerCase().replaceAll(' ', '-')}.png`
           }
         ],
-        rules: []
+        rules: [].concat((shirt === 'dog suit' ? [{
+          type: "MUTATE_ALL",
+          fn: "HIDE_LEGS_AND_FEET"
+        }] : []) as any)
       }
     ] as any : []
   ).concat(
@@ -1028,7 +1031,7 @@ export function generateWolfTraits(args: any) {
         rarity: TraitRarity.COMMON,
         images: [
           {
-            uri: `${shoes.toLowerCase().replaceAll(' ', '-')}-shoes.png`
+            uri: `${shoes.toLowerCase().replaceAll(' ', '-')}.png`
           }
         ],
         rules: []

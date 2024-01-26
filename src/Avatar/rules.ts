@@ -328,8 +328,9 @@ export const HIDE_FACE_FOR_MECHANICAL = (trait: Trait, traits: Trait[], width: n
   return trait;
 };
 
+const FeetExemptFromHiding = ['autumn leaf pile', 'snowman shoes', 'gift box bottom', 'gift pile'];
 export const HIDE_LEGS_AND_FEET = (trait: Trait, traits: Trait[], width: number, height: number, tokenId?: string, type?: Avatar) => {
-  if (trait.traitType === TraitType.SHOES) {
+  if (trait.traitType === TraitType.SHOES && !FeetExemptFromHiding.includes(trait.name)) {
     return {
       ...trait,
       weight: -1
