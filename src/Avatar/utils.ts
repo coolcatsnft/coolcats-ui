@@ -517,7 +517,7 @@ export function createAvatarCanvasLayers(
     }).reduce((newLayers: CanvasLayer[], traitImage: TraitImage) => {
       return newLayers.concat([
         {
-          src: `${(baseUrl || '').replace('$type', type.toLowerCase()).replace('$traitType', trait.traitType.toLowerCase())}${traitImage.uri}`,
+          src: trait.generated ? trait.generated : `${(baseUrl || '').replace('$type', type.toLowerCase()).replace('$traitType', trait.traitType.toLowerCase())}${traitImage.uri}`,
           height: trait.height || height || CANVAS_HEIGHT,
           width: trait.width || width || CANVAS_WIDTH,
           x: typeof trait.offsetX === 'number' ? trait.offsetX : 0,

@@ -127,7 +127,7 @@ export default {
     sidekick: '',
     skin: '',
     tokenId: '1',
-    baseUrl: 'https://content.coolcatsnft.com/avatar/explorer/$traitType/',
+    baseUrl: 'https://cdn.avatar.coolcats.com/trait/explorer/$traitType/',
     view: 'FULL',
     type: 'EXPLORER',
     bordered: false
@@ -173,7 +173,7 @@ export default {
     },
     baseUrl: {
       control: 'select',
-      options: ['https://content.coolcatsnft.com/avatar/explorer/$traitType/', 'https://content.coolcatsnft.com/avatar/explorer2000x2000/$traitType/']
+      options: ['https://cdn.avatar.coolcats.com/trait/explorer/$traitType/', 'https://cdn.avatar.coolcats.com/trait/explorer2000x2000/$traitType/']
     },
     skin: {
       control: 'select',

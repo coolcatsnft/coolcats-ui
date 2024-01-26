@@ -122,7 +122,7 @@ export default {
     sidekick: '',
     type: 'CAT',
     tokenId: '',
-    baseUrl: 'https://content.coolcatsnft.com/avatar/$type/$traitType/',
+    baseUrl: 'https://cdn.avatar.coolcats.com/trait/$type/$traitType/',
     view: 'FULL',
     bordered: false
   },
@@ -174,7 +174,7 @@ export default {
     },
     baseUrl: {
       control: 'select',
-      options: ['https://content.coolcatsnft.com/avatar/$type/$traitType/', 'https://content.coolcatsnft.com/avatar/$type2000x2000/$traitType/']
+      options: ['https://cdn.avatar.coolcats.com/trait/$type/$traitType/', 'https://cdn.avatar.coolcats.com/trait/$type2000x2000/$traitType/']
     },
     shoes: {
       control: 'select',

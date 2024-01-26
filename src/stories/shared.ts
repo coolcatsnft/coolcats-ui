@@ -863,7 +863,7 @@ export const WolfArgs = {
     skin: '',
     sidekick: '',
     tokenId: '',
-    baseUrl: 'https://content.coolcatsnft.com/avatar/shadowwolf/$traitType/',
+    baseUrl: 'https://cdn.avatar.coolcats.com/trait/shadowwolf/$traitType/',
     view: 'FULL',
     type: 'SHADOWWOLF',
     background: '',
@@ -911,7 +911,7 @@ export const WolfArgs = {
     },
     baseUrl: {
       control: 'select',
-      options: ['https://content.coolcatsnft.com/avatar/shadowwolf/$traitType/', 'https://content.coolcatsnft.com/avatar/shadowwolf2000x2000/$traitType/']
+      options: ['https://cdn.avatar.coolcats.com/trait/shadowwolf/$traitType/', 'https://cdn.avatar.coolcats.com/trait/shadowwolf2000x2000/$traitType/']
     }
   }
 };
