@@ -7,7 +7,7 @@ export default {
   title: 'Avatar',
   component: AvatarCanvas,
   args: {
-    baseUrl: 'https://content.coolcatsnft.com/avatar/cat2000x2000/$traitType/',
+    baseUrl: 'https://cdn.avatar.coolcats.com/trait/cat2000x2000/$traitType/',
     width: 400,
     height: 400,
     view: 'FULL',
@@ -512,7 +512,7 @@ const ExplorerTemplate: StoryFn<typeof AvatarCanvas> = (args) => {
     <AvatarCanvas 
       {...args}
       tokenId='1'
-      baseUrl='https://content.coolcatsnft.com/avatar/explorer2000x2000/$traitType/'
+      baseUrl='https://cdn.avatar.coolcats.com/trait/explorer2000x2000/$traitType/'
       type={Avatar.EXPLORER}
       traits={[]}
     />
@@ -688,7 +688,7 @@ const ExplorerChugTemplate: StoryFn<typeof AvatarCanvas> = (args) => {
     <AvatarCanvas 
       {...args}
       tokenId='1'
-      baseUrl='https://content.coolcatsnft.com/avatar/explorer2000x2000/$traitType/'
+      baseUrl='https://cdn.avatar.coolcats.com/trait/explorer2000x2000/$traitType/'
       type={Avatar.EXPLORER}
       traits={[{
         type: Avatar.EXPLORER,

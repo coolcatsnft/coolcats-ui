@@ -863,7 +863,7 @@ export const WolfArgs = {
     skin: '',
     sidekick: '',
     tokenId: '',
-    baseUrl: 'https://content.coolcatsnft.com/avatar/shadowwolf/$traitType/',
+    baseUrl: 'https://cdn.avatar.coolcats.com/trait/shadowwolf/$traitType/',
     view: 'FULL',
     type: 'SHADOWWOLF',
     background: '',
@@ -911,7 +911,7 @@ export const WolfArgs = {
     },
     baseUrl: {
       control: 'select',
-      options: ['https://content.coolcatsnft.com/avatar/shadowwolf/$traitType/', 'https://content.coolcatsnft.com/avatar/shadowwolf2000x2000/$traitType/']
+      options: ['https://cdn.avatar.coolcats.com/trait/shadowwolf/$traitType/', 'https://cdn.avatar.coolcats.com/trait/shadowwolf2000x2000/$traitType/']
     }
   }
 };
@@ -999,7 +999,10 @@ export function generateWolfTraits(args: any) {
             uri: `${shirt.toLowerCase().replaceAll(' ', '-')}.png`
           }
         ],
-        rules: []
+        rules: [].concat((shirt === 'dog suit' ? [{
+          type: "MUTATE_ALL",
+          fn: "HIDE_LEGS_AND_FEET"
+        }] : []) as any)
       }
     ] as any : []
   ).concat(
@@ -1028,7 +1031,7 @@ export function generateWolfTraits(args: any) {
         rarity: TraitRarity.COMMON,
         images: [
           {
-            uri: `${shoes.toLowerCase().replaceAll(' ', '-')}-shoes.png`
+            uri: `${shoes.toLowerCase().replaceAll(' ', '-')}.png`
           }
         ],
         rules: []

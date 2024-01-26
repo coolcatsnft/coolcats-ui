@@ -117,19 +117,19 @@ const Template5: StoryFn<typeof LayeredCanvas> = (args) => {
       {...args}
       layers={[
         {
-          src: 'https://content.coolcatsnft.com/avatar/shadowwolf/background/primal-1.png'
+          src: 'https://cdn.avatar.coolcats.com/trait/shadowwolf/background/primal-1.png'
         },
         {
-          src: 'https://content.coolcatsnft.com/avatar/cat/body/cc-body.png'
+          src: 'https://cdn.avatar.coolcats.com/trait/cat/body/cc-body.png'
         },
         {
-          src: 'https://content.coolcatsnft.com/avatar/cat/body/cc-arms.png',
+          src: 'https://cdn.avatar.coolcats.com/trait/cat/body/cc-arms.png',
         },
         {
-          src: 'https://content.coolcatsnft.com/avatar/cat/body/cc-head.png'
+          src: 'https://cdn.avatar.coolcats.com/trait/cat/body/cc-head.png'
         },
         {
-          src: 'https://content.coolcatsnft.com/avatar/cat/body/cc-whiskers.png'
+          src: 'https://cdn.avatar.coolcats.com/trait/cat/body/cc-whiskers.png'
         }
       ]}
       height={800}
@@ -146,7 +146,7 @@ const Template6: StoryFn<typeof LayeredCanvas> = (args) => {
       {...args}
       layers={[
         {
-          src: 'https://content.coolcatsnft.com/avatar/shadowwolf/background/primal-1.png'
+          src: 'https://cdn.avatar.coolcats.com/trait/shadowwolf/background/primal-1.png'
         },
         {
           src: 'https://coolcats.com/images/about-cool-cats.png',
