@@ -25,7 +25,6 @@ export const AvatarCanvas = forwardRef((props: AvatarCanvasConfig, ref: any) => 
       ref={ref}
       bordered={bordered}
       children={children}
-      crossHairs
       layers={
         createAvatarCanvasLayers({
           view: stateView,
