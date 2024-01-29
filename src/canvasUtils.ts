@@ -19,6 +19,7 @@ export type BaseCanvasLayer = {
   y?: number;
   height?: number;
   width?: number;
+  stickerWidth?: number;
 }
 
 export type RenderedCanvasLayer = BaseCanvasLayer & {
@@ -273,8 +274,8 @@ export function drawMultilineText(ctx: CanvasRenderingContext2D, text: string, o
   return fontSize;
 }
 
-const applyStickerEffect = (canvasCreate: Function, layerCanvas: HTMLCanvasElement) => {
-  const thickness = layerCanvas.width * 0.01;
+const applyStickerEffect = (canvasCreate: Function, layerCanvas: HTMLCanvasElement, stickerWidth?: number) => {
+  const thickness = layerCanvas.width * (stickerWidth || 0.02);
   const samples = 36;
   const x = thickness + 1;
   const y = thickness + 1;
@@ -497,14 +498,15 @@ export const generateLayeredCanvas = (
     }
 
     if (l.sticker) {
-      const stickerCanv = applyStickerEffect(canvasCreate, layerCanvas);
+      const stickerCanv = applyStickerEffect(canvasCreate, layerCanvas, l.stickerWidth);
       renderedLayers.push({
         canvas: stickerCanv,
         x: l.x || 0,
         y: l.y || 0,
         width: layerCanvas.width,
         height: layerCanvas.height,
-        stickerExempt: l.stickerExempt || false
+        stickerExempt: l.stickerExempt || false,
+        stickerWidth: l.stickerWidth
       })
     } else {
       renderedLayers.push({
@@ -513,7 +515,8 @@ export const generateLayeredCanvas = (
         y: l.y || 0,
         width: layerCanvas.width,
         height: layerCanvas.height,
-        stickerExempt: l.stickerExempt || false
+        stickerExempt: l.stickerExempt || false,
+        stickerWidth: l.stickerWidth
       })
     }
   });
@@ -546,7 +549,7 @@ export const generateLayeredCanvas = (
       );
     });
 
-    const stickerCanv = applyStickerEffect(canvasCreate, forground);
+    const stickerCanv = applyStickerEffect(canvasCreate, forground, renderedLayers[0]?.stickerWidth);
 
     removeCanvas(forground);
 

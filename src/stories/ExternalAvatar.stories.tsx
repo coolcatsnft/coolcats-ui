@@ -404,8 +404,8 @@ const BlueCatTemplate: StoryFn<typeof AvatarCanvas> = (args) => {
     <AvatarCanvas 
       {...args}
       traits={traits}
-      height={600}
-      width={600}
+      height={2000}
+      width={2000}
     />
   )
 }
