@@ -861,6 +861,7 @@ export const WolfArgs = {
     pants: '',
     shoes: '',
     skin: '',
+    effect: '',
     sidekick: '',
     tokenId: '',
     baseUrl: 'https://cdn.avatar.coolcats.com/trait/shadowwolf/$traitType/',
@@ -901,6 +902,13 @@ export const WolfArgs = {
       control: 'select',
       options: sidekicks
     },
+    effect: {
+      control: 'select',
+      options: [
+        '',
+        'sticker'
+      ]
+    },
     background: {
       control: 'select',
       options: backgrounds
@@ -917,7 +925,7 @@ export const WolfArgs = {
 };
 
 export function generateWolfTraits(args: any) {
-  const { pants, background, shirt, face, hat, skin, sidekick, shoes } = args as any;
+  const { pants, background, shirt, face, hat, skin, sidekick, shoes, effect } = args as any;
   return [].concat(
     background ? [{
       type: Avatar.SHADOWWOLF,
@@ -1037,6 +1045,25 @@ export function generateWolfTraits(args: any) {
         rules: []
       }
     ] as any : []
+  ).concat(
+    effect ? [
+      {
+        type: Avatar.CAT,
+        view: AvatarView.FULL,
+        traitType: TraitType.EFFECT,
+        name: effect,
+        rarity: TraitRarity.COMMON,
+        images: [
+          {
+            uri: `transparent.png`
+          }
+        ],
+        rules: [{
+          type: 'EFFECT',
+          fn: TraitRuleFunction.EFFECT_STICKER
+        }] as any
+      }
+    ] : [] as any
   ).concat(
     sidekick ? [
       {
