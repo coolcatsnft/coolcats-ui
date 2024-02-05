@@ -261,6 +261,7 @@ export function createAvatarCanvasLayers(
   const hasFace = traits.find(t => t.traitType === TraitType.FACE && t.name?.toLowerCase() !== 'no face');
   const hasHat = traits.find(t => t.traitType === TraitType.HAT && t.name?.toLowerCase() !== 'no hat');
   const hasBorder = traits.find(t => t.traitType === TraitType.BORDER && t.name?.toLowerCase() !== 'no border');
+  const isSticker = typeof (traits.find(t => t.traitType === TraitType.EFFECT)?.rules || [])?.find(r => r.fn === TraitRuleFunction.EFFECT_STICKER) !== 'undefined' && !hasBorder;
   const bodyImages = getBodyImages(type, view, traits, tokenId);
 
   const body = {
@@ -276,6 +277,17 @@ export function createAvatarCanvasLayers(
   // Add body trait
   const traitsIncludingBody = traits.concat(
     [body]
+  ).map(
+    t => {
+      if (isSticker && t.traitType === TraitType.EFFECT) {
+        return {
+          ...t,
+          rules: []
+        }
+      }
+
+      return t;
+    }
   ).map(t => t.traitType === TraitType.BODY ? {
     ...t,
     images: LEGENDARY_OVERRIDE ? LEGENDARY_OVERRIDE_TRAIT.images : t.images,
@@ -366,11 +378,10 @@ export function createAvatarCanvasLayers(
     return t;
   });
   
-  
-  let evaldTraits = traitsIncludingBody as Trait[];
+  let evaldTraits = (traitsIncludingBody as Trait[]);
 
   // Get the mutate all rules
-  const rules = traits.reduce((rules: TraitRule[], trait: Trait) => {
+  const rules = evaldTraits.reduce((rules: TraitRule[], trait: Trait) => {
     return rules.concat((trait?.rules || []).filter(r => r.type === TraitRuleType.MUTATE_ALL));
   }, []);
   
@@ -532,7 +543,7 @@ export function createAvatarCanvasLayers(
           canvasCallbacks: canvasEffects,
           rotate: (trait.rules || []).find(r => r.fn === TraitRuleFunction.EFFECT_UPSIDE_DOWN) ? 180 : undefined,
           flip: (trait.rules || []).find(r => r.fn === TraitRuleFunction.EFFECT_FLIP_HORIZONTAL) ? 'horizontal' : undefined,
-          stickerSpecial: typeof (trait.rules || []).find(r => r.fn === TraitRuleFunction.EFFECT_STICKER) !== 'undefined',
+          stickerSpecial: isSticker,
           background: trait.background,
           parentBackground: trait.parentBackground,
           stickerExempt: trait.traitType === TraitType.BORDER,

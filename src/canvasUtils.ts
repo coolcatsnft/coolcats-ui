@@ -556,7 +556,7 @@ export const generateLayeredCanvas = (
     drawImageWrapper(
       ctx,
       stickerCanv,
-      0,
+      stickerCanv.thickness * -1,
       stickerCanv.thickness,
       width,
       height
