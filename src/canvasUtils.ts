@@ -20,6 +20,7 @@ export type BaseCanvasLayer = {
   height?: number;
   width?: number;
   stickerWidth?: number;
+  label?: string;
 }
 
 export type RenderedCanvasLayer = BaseCanvasLayer & {
@@ -281,14 +282,14 @@ const applyStickerEffect = (canvasCreate: Function, layerCanvas: HTMLCanvasEleme
   const y = thickness + 1;
 
   const stickerCanv = canvasCreate(layerCanvas.width + x * 2, layerCanvas.height + y * 2);
-  const stickerCtx = stickerCanv.getContext('2d')!;
+  const stickerCtx = stickerCanv.getContext('2d');
 
   for (let angle = 0; angle < 360; angle += 360 / samples) {
     drawImageWrapper(
       stickerCtx,
       layerCanvas,
       thickness * Math.sin((Math.PI * 2 * angle) / 360) + x,
-      thickness * Math.cos((Math.PI * 2 * angle) / 360) + y
+      thickness * Math.cos((Math.PI * 2 * angle) / 360)
     );
   }
 
@@ -297,7 +298,7 @@ const applyStickerEffect = (canvasCreate: Function, layerCanvas: HTMLCanvasEleme
   fillRectWrapper(stickerCtx, 0, 0, stickerCanv.width, stickerCanv.height);
 
   stickerCtx.globalCompositeOperation = 'source-over';
-  drawImageWrapper(stickerCtx, layerCanvas, x, y);
+  drawImageWrapper(stickerCtx, layerCanvas, x, 0);
   stickerCanv.thickness = thickness;
 
   return stickerCanv;
@@ -506,7 +507,8 @@ export const generateLayeredCanvas = (
         width: layerCanvas.width,
         height: layerCanvas.height,
         stickerExempt: l.stickerExempt || false,
-        stickerWidth: l.stickerWidth
+        stickerWidth: l.stickerWidth,
+        label: l.label
       })
     } else {
       renderedLayers.push({
@@ -516,27 +518,31 @@ export const generateLayeredCanvas = (
         width: layerCanvas.width,
         height: layerCanvas.height,
         stickerExempt: l.stickerExempt || false,
-        stickerWidth: l.stickerWidth
+        stickerWidth: l.stickerWidth,
+        label: l.label
       })
     }
   });
 
   if (stickerEffect) {
-    renderedLayers.slice(0, 1).forEach(r => {
-      drawImageWrapper(
-        ctx,
-        r.canvas,
-        r.x,
-        r.y,
-        r.width,
-        r.height
-      );
-    });
+    const hasBg = renderedLayers.find(l => l.label === 'BACKGROUND');
+    if (hasBg) {
+      renderedLayers.slice(0, 1).forEach(r => {
+        drawImageWrapper(
+          ctx,
+          r.canvas,
+          r.x,
+          r.y,
+          r.width,
+          r.height
+        );
+      });
+    }
 
     const forground = canvasCreate(width, height);
     const forgroundCtx = forground.getContext('2d');
     renderedLayers.slice(
-      1,
+      hasBg ? 1 : 0,
       renderedLayers.filter(l => !l.stickerExempt).length - 1
     ).forEach(r => {
       drawImageWrapper(
@@ -557,7 +563,7 @@ export const generateLayeredCanvas = (
       ctx,
       stickerCanv,
       stickerCanv.thickness * -1,
-      stickerCanv.thickness,
+      0,
       width,
       height
     );

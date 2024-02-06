@@ -547,7 +547,8 @@ export function createAvatarCanvasLayers(
           background: trait.background,
           parentBackground: trait.parentBackground,
           stickerExempt: trait.traitType === TraitType.BORDER,
-          stickerWidth: view === AvatarView.FULL ? 0.01 : 0.02
+          stickerWidth: view === AvatarView.FULL ? 0.01 : 0.02,
+          label: trait.traitType
         }
       ])
     }, []);
