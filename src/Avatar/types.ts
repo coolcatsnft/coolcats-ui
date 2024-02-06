@@ -16,6 +16,7 @@ export enum AvatarView {
 export enum TraitType {
   BACKGROUND = 'BACKGROUND',
   BODY = 'BODY',
+  BACK = 'BACK',
   SKIN = 'SKIN',
   SHIRT = 'SHIRT',
   FACE = 'FACE',

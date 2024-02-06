@@ -17,6 +17,7 @@ export function applyDefaultWeights(trait: Trait) {
     ...trait,
     weight: {
       [TraitType.BACKGROUND]: 0,
+      [TraitType.BACK]: 0.5,
       [TraitType.BODY]: 1,
       [TraitType.SKIN]: 1.5,
       [TraitType.PANTS]: 2,
