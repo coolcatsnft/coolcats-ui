@@ -87,7 +87,7 @@ export function getBodyImages(
     t => t.name.toLowerCase().endsWith('front') && t.images.length > 0
   ).map(t => ({
     uri: t.images[0].uri.replace('front', 'back'),
-    weight: 100
+    weight: 0
   }))
 
   return [

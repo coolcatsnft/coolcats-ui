@@ -302,7 +302,18 @@ export const hatTraits = [
   'wraith head cc',
   'wraith head sw',
   'wreath flowers',
-  'wreath'
+  'wreath',
+
+  'lion-dance-head-purple',
+  'lion-dance-head-red',
+  'lviii-helmet-gold-sw',
+  'lviii-helmet-red-sw',
+  'lviii-hat-black-sw',
+  'lviii-hat-red-sw',
+  'in-love',
+  'cupid-hair',
+
+  'x'
 ];
 
 export const shirtTraits = [
@@ -544,7 +555,17 @@ export const shirtTraits = [
   'wraith suit ex',
   'wraith suit sw',
   'wreath rainbow',
-  'wreath red'
+  'wreath red',
+
+  'cupid-wings',
+  'lion-dance-costume-purple-front',
+  'lion-dance-costume-red-front',
+  'lviii-jersey-away',
+  'lviii-jersey-home',
+  'lviii-tshirt-black',
+  'lviii-tshirt-red',
+  'scarf-endless-love',
+  'tshirt-lovestruck'
 ];
 
 export const faceTraits = [
@@ -687,7 +708,14 @@ export const pantsTraits = [
   'wetsuit pants',
   'winter blue pants',
   'witch skirt',
-  'work blue pants'
+  'work blue pants',
+
+  'lion-dance-pants-purple',
+  'lion-dance-pants-red',
+  'lviii-leggings-white',
+  'lviii-leggings-gold',
+  'boxers-much-love',
+  'cupid-pants'
 ];
 
 export const shoeTraits = [
@@ -785,7 +813,10 @@ export const shoeTraits = [
   'viking navy shoes',
   'winter blue shoes',
   'witch shoes',
-  'work blue shoes'
+  'work blue shoes',
+
+  'lion-dance-paws-purple',
+  'lion-dance-paws-red'
 ]
 
 export const sidekicks = [
@@ -848,7 +879,11 @@ export const backgrounds = [
   'wandering moonlight',
   'white',
   'wild_1',
-  'wild_2'
+  'wild_2',
+
+  'lunar-new-year-2024',
+  'lviii-stadium',
+  'valentines-day'
 ]
 
 export const WolfArgs = {

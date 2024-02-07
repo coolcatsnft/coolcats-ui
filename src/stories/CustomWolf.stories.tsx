@@ -6,7 +6,7 @@ import { WolfArgs, generateWolfTraits } from './shared';
 
 export default {
   ...WolfArgs,
-  title: 'Custom Avatar'
+  title: 'Wolf Sandbox'
 } as Meta<typeof AvatarCanvas>;
 
 const Wolftraits = [
@@ -29,7 +29,7 @@ const WolfTemplate: StoryFn<typeof AvatarCanvas> = (args) => {
   const traits = generateWolfTraits(args);
 
   return (
-    <AvatarCanvas {...args} traits={traits} height={400} width={400} />
+    <AvatarCanvas {...args} traits={traits} height={args.height || 400} width={args.width || 400} />
   )
 } 
 

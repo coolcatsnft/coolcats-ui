@@ -275,8 +275,12 @@ export function drawMultilineText(ctx: CanvasRenderingContext2D, text: string, o
   return fontSize;
 }
 
+const calcThickness = (width: number, stickerWidth?: number) => {
+  return width * (stickerWidth || 0.02);
+}
+
 const applyStickerEffect = (canvasCreate: Function, layerCanvas: HTMLCanvasElement, stickerWidth?: number) => {
-  const thickness = layerCanvas.width * (stickerWidth || 0.02);
+  const thickness = calcThickness(layerCanvas.width, stickerWidth);
   const samples = 36;
   const x = thickness + 1;
   const y = thickness + 1;
@@ -538,7 +542,7 @@ export const generateLayeredCanvas = (
         );
       });
     }
-
+    
     const forground = canvasCreate(width, height);
     const forgroundCtx = forground.getContext('2d');
     renderedLayers.slice(
