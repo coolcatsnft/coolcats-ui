@@ -278,7 +278,12 @@ export function createAvatarCanvasLayers(
   // Add body trait
   const traitsIncludingBody = traits.concat(
     [body]
-  ).map(
+  ).filter(t => {
+    if (!hasBorder) {
+      return t.traitType !== TraitType.BORDER;
+    }
+    return t;
+  }).map(
     t => {
       if (isSticker && t.traitType === TraitType.EFFECT) {
         return {

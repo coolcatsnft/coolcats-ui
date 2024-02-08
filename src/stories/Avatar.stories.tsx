@@ -900,3 +900,227 @@ const WolfChugTemplate2: StoryFn<typeof AvatarCanvas> = (args) => {
 }
 
 export const WolfMilkChug2 = WolfChugTemplate2.bind({});
+
+
+
+const StickerTesttemplate: StoryFn<typeof AvatarCanvas> = (args) => {
+  return (
+    <AvatarCanvas 
+      {...args}
+      baseUrl={args.baseUrl}
+      type={Avatar.CAT}
+      traits={
+        [
+          {
+            "id": 16,
+            "name": "happy",
+            "rarity": 1,
+            "type": "CAT",
+            "weight": null,
+            "traitType": "FACE",
+            "additional": false,
+            "displayName": "Happy",
+            "tokenId": null,
+            "fromTokenId": null,
+            "toTokenId": null,
+            "contract": null,
+            "boundTo": {
+              "token_id": 4710,
+              "token_type": "CAT"
+            },
+            "images": [
+              {
+                "uri": "happy.png"
+              }
+            ],
+            "rules": []
+          },
+          {
+            "id": 154,
+            "name": "bucket hat green",
+            "rarity": 1,
+            "type": "CAT",
+            "weight": null,
+            "traitType": "HAT",
+            "additional": false,
+            "displayName": "Bucket hat green",
+            "tokenId": null,
+            "fromTokenId": null,
+            "toTokenId": null,
+            "contract": null,
+            "boundTo": {
+              "token_id": 4710,
+              "token_type": "CAT"
+            },
+            "images": [
+              {
+                "uri": "bucket-hat-green.png"
+              }
+            ],
+            "rules": []
+          },
+          {
+            "id": 217,
+            "name": "no border",
+            "rarity": 1,
+            "type": "CAT",
+            "weight": -2,
+            "traitType": "BORDER",
+            "additional": true,
+            "displayName": "No Border",
+            "tokenId": null,
+            "fromTokenId": null,
+            "toTokenId": null,
+            "contract": null,
+            "displayImage": {
+              "uri": "/images/avatar/none.svg"
+            },
+            "images": [
+              {
+                "uri": "transparent.png"
+              }
+            ],
+            "rules": []
+          },
+          {
+            "id": 231,
+            "name": "cool_1",
+            "rarity": 1,
+            "type": "CAT",
+            "weight": null,
+            "traitType": "BACKGROUND",
+            "additional": false,
+            "displayName": "Cool 1",
+            "tokenId": null,
+            "fromTokenId": null,
+            "toTokenId": null,
+            "contract": null,
+            "boundTo": {
+              "token_id": 4710,
+              "token_type": "CAT"
+            },
+            "images": [
+              {
+                "uri": "cool_1.png"
+              }
+            ],
+            "rules": []
+          },
+          {
+            "id": 438,
+            "name": "astro black",
+            "rarity": 4,
+            "type": "CAT",
+            "weight": null,
+            "traitType": "PANTS",
+            "additional": false,
+            "displayName": "Black Astro",
+            "tokenId": 1,
+            "fromTokenId": null,
+            "toTokenId": null,
+            "contract": {
+              "tokenId": 1
+            },
+            "images": [
+              {
+                "uri": "astro-black-pants.png"
+              }
+            ],
+            "rules": []
+          },
+          {
+            "id": 578,
+            "name": "combat black",
+            "rarity": 4,
+            "type": "CAT",
+            "weight": null,
+            "traitType": "SHOES",
+            "additional": false,
+            "displayName": "Black Combat Boots",
+            "tokenId": 81,
+            "fromTokenId": null,
+            "toTokenId": null,
+            "contract": {
+              "tokenId": 81
+            },
+            "images": [
+              {
+                "uri": "combat-black-shoes.png"
+              }
+            ],
+            "rules": []
+          },
+          {
+            "id": 864,
+            "name": "plain grey shirt",
+            "rarity": 1,
+            "type": "CAT",
+            "weight": null,
+            "traitType": "SHIRT",
+            "additional": true,
+            "displayName": "Plain Grey Shirt",
+            "tokenId": null,
+            "fromTokenId": null,
+            "toTokenId": null,
+            "contract": null,
+            "images": [
+              {
+                "uri": "shirt-grey.png"
+              }
+            ],
+            "rules": []
+          },
+          {
+            "id": 1640,
+            "name": "sticker",
+            "rarity": 0,
+            "type": "CAT",
+            "weight": null,
+            "traitType": "EFFECT",
+            "additional": true,
+            "displayName": "Outline",
+            "tokenId": null,
+            "fromTokenId": null,
+            "toTokenId": null,
+            "contract": null,
+            "images": [
+              {
+                "uri": "transparent.png"
+              }
+            ],
+            "rules": [
+              {
+                "type": "EFFECT",
+                "fn": "EFFECT_STICKER"
+              }
+            ]
+          },
+          {
+            "name": "Magical Girl",
+            "type": "CAT",
+            "view": "FULL",
+            "traitType": "SIDEKICK",
+            "rarity": 0,
+            "contract": {
+              "tokenId": 373,
+              "contract": {
+                "address": "0xda11e1d06e4e0d0ac26805bdb063ecdbac426aa0",
+                "network": "etheruem"
+              }
+            },
+            "displayImage": {
+              "uri": "https://s3.amazonaws.com/metadata.coolcatsnft.com/library/sidekick/thumbnail/373.png"
+            },
+            "images": [
+              {
+                "uri": "magical girl-sage-flame.png"
+              }
+            ],
+            "rules": []
+          }
+        ] as any}
+    />
+  )
+}
+
+export const StickerTest = StickerTesttemplate.bind({});
