@@ -285,7 +285,7 @@ const applyStickerEffect = (canvasCreate: Function, layerCanvas: HTMLCanvasEleme
   const x = thickness + 1;
   const y = thickness + 1;
 
-  const stickerCanv = canvasCreate(layerCanvas.width + x * 2, layerCanvas.height + y * 2);
+  const stickerCanv = canvasCreate((layerCanvas.width + x * 2), layerCanvas.height + y * 2);
   const stickerCtx = stickerCanv.getContext('2d');
 
   for (let angle = 0; angle < 360; angle += 360 / samples) {
@@ -565,7 +565,7 @@ export const generateLayeredCanvas = (
       stickerCanv,
       stickerCanv.thickness * -1,
       0,
-      width,
+      width + stickerCanv.thickness,
       height
     );
 

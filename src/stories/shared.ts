@@ -886,6 +886,12 @@ export const backgrounds = [
   'valentines-day'
 ]
 
+export const accessories = [
+  '',
+  'cupid bow',
+  'red balloon'
+]
+
 export const WolfArgs = {
   title: 'Custom Avatar',
   component: AvatarCanvas,
@@ -898,6 +904,7 @@ export const WolfArgs = {
     skin: '',
     effect: '',
     sidekick: '',
+    accessory: '',
     tokenId: '',
     baseUrl: 'https://cdn.avatar.coolcats.com/trait/shadowwolf/$traitType/',
     view: 'FULL',
@@ -933,6 +940,10 @@ export const WolfArgs = {
       control: 'select',
       options: shoeTraits
     },
+    accessory: {
+      control: 'select',
+      options: accessories
+    },
     sidekick: {
       control: 'select',
       options: sidekicks
@@ -960,7 +971,7 @@ export const WolfArgs = {
 };
 
 export function generateWolfTraits(args: any) {
-  const { pants, background, shirt, face, hat, skin, sidekick, shoes, effect } = args as any;
+  const { pants, background, shirt, face, hat, skin, sidekick, shoes, effect, accessory } = args as any;
   return [].concat(
     background ? [{
       type: Avatar.SHADOWWOLF,
@@ -1075,6 +1086,22 @@ export function generateWolfTraits(args: any) {
         images: [
           {
             uri: `${shoes.toLowerCase().replaceAll(' ', '-')}.png`
+          }
+        ],
+        rules: []
+      }
+    ] as any : []
+  ).concat(
+    accessory ? [
+      {
+        type: Avatar.SHADOWWOLF,
+        view: AvatarView.FULL,
+        traitType: TraitType.ACCESSORY,
+        name: accessory,
+        rarity: TraitRarity.COMMON,
+        images: [
+          {
+            uri: `${accessory.toLowerCase().replaceAll(' ', '-')}.png`
           }
         ],
         rules: []
