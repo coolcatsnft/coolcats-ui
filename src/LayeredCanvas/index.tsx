@@ -40,7 +40,13 @@ export const LayeredCanvas = forwardRef((props: CanvasConfig, ref: any) => {
   const [layers, setLayers] = useState<Array<CanvasLayer>>([]);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const { layers: propsLayers, height, children, reset, bordered, width } = props;
+  const { layers: propsLayers, height, children, reset, bordered, width, onLoadLayers } = props;
+
+  useEffect(() => {
+    if (layers?.length > 0 && onLoadLayers) {
+      onLoadLayers(layers);
+    }
+  }, [layers, onLoadLayers])
   
   useEffect(() => {
     if (reset) {

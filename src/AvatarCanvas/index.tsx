@@ -7,7 +7,7 @@ import { createAvatarCanvasLayers } from "../Avatar/utils";
 type AvatarCanvasConfig = CanvasConfig & BaseCanvasConfig;
 
 export const AvatarCanvas = forwardRef((props: AvatarCanvasConfig, ref: any) => {
-  const { traits, height, children, reset, bordered, width, view, baseUrl, type, tokenId, crossHairs } = props;
+  const { traits, height, children, reset, bordered, width, view, baseUrl, type, tokenId, crossHairs, onLoadLayers } = props;
 
   const [stateView, setStateView] = useState<AvatarView>(view);
 
@@ -26,6 +26,7 @@ export const AvatarCanvas = forwardRef((props: AvatarCanvasConfig, ref: any) => 
       bordered={bordered}
       children={children}
       crossHairs={crossHairs}
+      onLoadLayers={onLoadLayers}
       layers={
         createAvatarCanvasLayers({
           view: stateView,

@@ -8,6 +8,7 @@ export type BaseCanvasConfig = PropsWithChildren & {
   bordered?: boolean;
   background?: string;
   crossHairs?: boolean;
+  onLoadLayers?: Function;
 }
 
 export type CanvasConfig = BaseCanvasConfig & {

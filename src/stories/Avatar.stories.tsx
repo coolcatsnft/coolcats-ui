@@ -49,6 +49,7 @@ const BlueCatTemplate: StoryFn<typeof AvatarCanvas> = (args) => {
       {...args}
       type={Avatar.CAT}
       traits={BlueCatTraits}
+      onLoadLayers={console.log}
     />
   )
 }
