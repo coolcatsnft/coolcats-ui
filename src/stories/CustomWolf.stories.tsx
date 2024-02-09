@@ -466,3 +466,206 @@ const TestTemplate3: StoryFn<typeof AvatarCanvas> = (args) => {
   )
 }
 export const WolfTest3 = TestTemplate3.bind({});
+
+const TestTemplate4: StoryFn<typeof AvatarCanvas> = (args) => {
+  const traits = Wolftraits.filter(t => t.traitType !== TraitType.BACKGROUND).concat(
+    [
+      {
+        "id": 300,
+        "name": "box chugs",
+        "rarity": 3,
+        "type": "SHADOWWOLF",
+        "weight": null,
+        "traitType": "SHIRT",
+        "additional": false,
+        "displayName": "Box chugs",
+        "tokenId": null,
+        "fromTokenId": null,
+        "toTokenId": null,
+        "contract": null,
+        "boundTo": {
+          "token_id": 4627,
+          "token_type": "SHADOWWOLF"
+        },
+        "images": [
+          {
+            "uri": "box-chugs.png"
+          }
+        ],
+        "rules": []
+      },
+      {
+        "id": 403,
+        "name": "red eyes",
+        "rarity": 4,
+        "type": "SHADOWWOLF",
+        "weight": null,
+        "traitType": "FACE",
+        "additional": false,
+        "displayName": "Red eyes",
+        "tokenId": null,
+        "fromTokenId": null,
+        "toTokenId": null,
+        "contract": null,
+        "boundTo": {
+          "token_id": 4627,
+          "token_type": "SHADOWWOLF"
+        },
+        "images": [
+          {
+            "uri": "red-eyes.png"
+          }
+        ],
+        "rules": []
+      },
+      {
+        "id": 697,
+        "name": "no pants",
+        "rarity": 0,
+        "type": "SHADOWWOLF",
+        "weight": -2,
+        "traitType": "PANTS",
+        "additional": true,
+        "displayName": "No Pants",
+        "tokenId": null,
+        "fromTokenId": null,
+        "toTokenId": null,
+        "contract": null,
+        "displayImage": {
+          "uri": "/images/avatar/none.svg"
+        },
+        "images": [
+          {
+            "uri": "transparent.png"
+          }
+        ],
+        "rules": []
+      },
+      {
+        "id": 961,
+        "name": "bunny shoes",
+        "rarity": 4,
+        "type": "SHADOWWOLF",
+        "weight": null,
+        "traitType": "SHOES",
+        "additional": false,
+        "displayName": "Bunny Shoes",
+        "tokenId": 197,
+        "fromTokenId": null,
+        "toTokenId": null,
+        "contract": {
+          "tokenId": 197
+        },
+        "images": [
+          {
+            "uri": "bunny-shoes.png"
+          }
+        ],
+        "rules": []
+      },
+      {
+        "id": 1641,
+        "name": "sticker",
+        "rarity": 0,
+        "type": "SHADOWWOLF",
+        "weight": null,
+        "traitType": "EFFECT",
+        "additional": true,
+        "displayName": "Outline",
+        "tokenId": null,
+        "fromTokenId": null,
+        "toTokenId": null,
+        "contract": null,
+        "images": [
+          {
+            "uri": "transparent.png"
+          }
+        ],
+        "rules": [
+          {
+            "type": "EFFECT",
+            "fn": "EFFECT_STICKER"
+          }
+        ],
+        "generated": {}
+      },
+      {
+        "id": 1781,
+        "name": "valentines day",
+        "rarity": 3,
+        "type": "SHADOWWOLF",
+        "weight": null,
+        "traitType": "BACKGROUND",
+        "additional": false,
+        "displayName": "Valentines Day",
+        "tokenId": 359,
+        "fromTokenId": null,
+        "toTokenId": null,
+        "contract": {
+          "tokenId": 359
+        },
+        "images": [
+          {
+            "uri": "valentines-day.png"
+          }
+        ],
+        "rules": []
+      },
+      {
+        "id": 1787,
+        "name": "in love emote",
+        "rarity": 3,
+        "type": "SHADOWWOLF",
+        "weight": null,
+        "traitType": "HAT",
+        "additional": false,
+        "displayName": "In Love Emote",
+        "tokenId": 355,
+        "fromTokenId": null,
+        "toTokenId": null,
+        "contract": {
+          "tokenId": 355
+        },
+        "images": [
+          {
+            "uri": "in-love-sw.png"
+          }
+        ],
+        "rules": []
+      },
+      {
+        "name": "Reindeer",
+        "type": "SHADOWWOLF",
+        "view": "FULL",
+        "traitType": "SIDEKICK",
+        "rarity": 0,
+        "contract": {
+          "tokenId": 1629,
+          "contract": {
+            "address": "0xda11e1d06e4e0d0ac26805bdb063ecdbac426aa0",
+            "network": "etheruem"
+          }
+        },
+        "displayImage": {
+          "uri": "https://s3.amazonaws.com/metadata.coolcatsnft.com/library/sidekick/thumbnail/1629.png"
+        },
+        "images": [
+          {
+            "uri": "reindeer-sage-red.png"
+          }
+        ],
+        "rules": []
+      }
+    ] as any
+  );
+  
+  return (
+    <AvatarCanvas 
+      {...args}
+      traits={traits}
+      height={400}
+      width={400}
+    />
+  )
+}
+export const WolfTest4 = TestTemplate4.bind({});

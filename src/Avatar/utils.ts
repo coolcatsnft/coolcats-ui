@@ -288,6 +288,7 @@ export function createAvatarCanvasLayers(
       if (isSticker && t.traitType === TraitType.EFFECT) {
         return {
           ...t,
+          images: [],
           rules: []
         }
       }

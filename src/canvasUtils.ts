@@ -432,7 +432,7 @@ export const generateLayeredCanvas = (
         );
 
         removeCanvas(tokenCanv);
-      } else {
+      } else if (l.src) {
         drawImageWrapper(
           layerCtx,
           l.src,
@@ -531,32 +531,29 @@ export const generateLayeredCanvas = (
   if (stickerEffect) {
     const hasBg = renderedLayers.find(l => l.label === 'BACKGROUND');
     if (hasBg) {
-      renderedLayers.slice(0, 1).forEach(r => {
+      drawImageWrapper(
+        ctx,
+        hasBg.canvas,
+        hasBg.x,
+        hasBg.y,
+        hasBg.width,
+        hasBg.height
+      );
+    }
+    
+    const forground = canvasCreate(width, height);
+    const forgroundCtx = forground.getContext('2d');
+    renderedLayers.forEach(r => {
+      if (!['BACKGROUND', 'EFFECT'].includes(r?.label as string)) {
         drawImageWrapper(
-          ctx,
+          forgroundCtx,
           r.canvas,
           r.x,
           r.y,
           r.width,
           r.height
         );
-      });
-    }
-    
-    const forground = canvasCreate(width, height);
-    const forgroundCtx = forground.getContext('2d');
-    renderedLayers.slice(
-      hasBg ? 1 : 0,
-      renderedLayers.filter(l => !l.stickerExempt).length - 1
-    ).forEach(r => {
-      drawImageWrapper(
-        forgroundCtx,
-        r.canvas,
-        r.x,
-        r.y,
-        r.width,
-        r.height
-      );
+      }
     });
 
     const stickerCanv = applyStickerEffect(canvasCreate, forground, renderedLayers[0]?.stickerWidth);
