@@ -134,6 +134,8 @@ export default {
     tokenId: '',
     baseUrl: 'https://cdn.avatar.coolcats.com/trait/cat/$traitType/',
     view: 'FULL',
+    width: 1000,
+    height: 1000,
     bordered: false
   },
   argTypes: {
