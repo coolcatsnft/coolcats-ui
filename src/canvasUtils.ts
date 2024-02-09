@@ -544,7 +544,7 @@ export const generateLayeredCanvas = (
     const forground = canvasCreate(width, height);
     const forgroundCtx = forground.getContext('2d');
     renderedLayers.forEach(r => {
-      if (!['BACKGROUND', 'EFFECT'].includes(r?.label as string)) {
+      if (!['BACKGROUND', 'EFFECT'].includes(r?.label || '')) {
         drawImageWrapper(
           forgroundCtx,
           r.canvas,
