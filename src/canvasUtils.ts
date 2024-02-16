@@ -20,6 +20,8 @@ export type BaseCanvasLayer = {
   y?: number;
   height?: number;
   width?: number;
+  cropX?: number;
+  cropY?: number;
   stickerWidth?: number;
   label?: string;
 }
@@ -88,15 +90,40 @@ export const downloadImage = (canvas: HTMLCanvasElement, tokenId: string | numbe
   link.click();
 };
 
-export const drawImageWrapper = (ctx: CanvasRenderingContext2D, src: any, x?: number, y?: number, width?: number, height?: number) => {
+export const drawImageWrapper = (ctx: CanvasRenderingContext2D, src: any, x?: number, y?: number, width?: number, height?: number, cropX?: number, cropY?: number) => {
   try {
-    ctx.drawImage(
-      src,
-      x || 0,
-      y || 0,
-      width || ctx?.canvas?.width || 1000,
-      height || ctx?.canvas?.height || 1000
-    );
+    const w = width || ctx?.canvas?.width || 1000;
+    const h = height || ctx?.canvas?.height || 1000;
+    if (cropX || cropY) {
+      const sourceX = 0;
+      const sourceY = 0;
+      const sourceWidth = src?.width * (cropX || 1);
+      const sourceHeight = src?.height * (cropY || 1);
+      const destX = 0;
+      const destY = 0;
+      const destWidth = w * (cropX || 1);
+      const destHeight = h * (cropY || 1);
+
+      ctx.drawImage(
+        src,
+        sourceX,
+        sourceY,
+        sourceWidth,
+        sourceHeight,
+        destX,
+        destY,
+        destWidth,
+        destHeight
+      );
+    } else {
+      ctx.drawImage(
+        src,
+        x || 0,
+        y || 0,
+        w,
+        h
+      );
+    }
   } catch(e) {
     console.error(`Error drawing ${src?.src} onto canvas`);
   }
@@ -440,7 +467,9 @@ export const generateLayeredCanvas = (
           0,
           0,
           layerCanvas.width,
-          layerCanvas.height
+          layerCanvas.height,
+          l.cropX,
+          l.cropY
         );
       }
 

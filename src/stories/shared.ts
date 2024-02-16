@@ -1110,7 +1110,7 @@ export function generateWolfTraits(args: any) {
   ).concat(
     effect ? [
       {
-        type: Avatar.CAT,
+        type: Avatar.SHADOWWOLF,
         view: AvatarView.FULL,
         traitType: TraitType.EFFECT,
         name: effect,

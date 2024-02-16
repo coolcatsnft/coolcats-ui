@@ -111,6 +111,7 @@ export type TraitImage = {
 }
 
 export type Trait = {
+  id?: number;
   type: Avatar;
   view: AvatarView;
   name: string;
@@ -132,6 +133,7 @@ export type Trait = {
   offsetY?: number;
   traitType: TraitType;
   generated?: HTMLImageElement|HTMLCanvasElement;
+  subTraits?: Trait[]
 }
 
 export type CanvasImage = {

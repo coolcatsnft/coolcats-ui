@@ -262,7 +262,11 @@ export function createAvatarCanvasLayers(
   const hasFace = traits.find(t => t.traitType === TraitType.FACE && t.name?.toLowerCase() !== 'no face');
   const hasHat = traits.find(t => t.traitType === TraitType.HAT && t.name?.toLowerCase() !== 'no hat');
   const hasBorder = traits.find(t => t.traitType === TraitType.BORDER && t.name?.toLowerCase() !== 'no border');
+  const isTiger = typeof tokenId === 'string' && TIGERS.includes(tokenId) && type === Avatar.CAT;
+  const isTribal = typeof tokenId === 'string' && TRIBAL.includes(tokenId) && type === Avatar.SHADOWWOLF;
+  const isSkeleton = typeof tokenId === 'string' && SKELETON.includes(tokenId) && type === Avatar.SHADOWWOLF;
   const isSticker = typeof (traits.find(t => t.traitType === TraitType.EFFECT)?.rules || [])?.find(r => r.fn === TraitRuleFunction.EFFECT_STICKER) !== 'undefined' && !hasBorder;
+  const isGhostTail = typeof traits.find(t => t.traitType === TraitType.PANTS && t.name.includes('ghost')) !== 'undefined';
   const bodyImages = getBodyImages(type, view, traits, tokenId);
 
   const body = {
@@ -359,7 +363,13 @@ export function createAvatarCanvasLayers(
     }
 
     return t;
-  }).map(t => {
+  }).reduce((traits: Trait[], trait: Trait) => {
+    return traits.concat(
+      [trait]
+    ).concat(
+      trait?.subTraits ? [...trait.subTraits] : []
+    );
+  }, []).map(t => {
     if (type === Avatar.SHADOWWOLF && t.traitType === TraitType.BODY) {
       const invalids = [] as string[];
       if (hasShirt) {
@@ -482,16 +492,6 @@ export function createAvatarCanvasLayers(
       }
     }
 
-    if (view === AvatarView.FULL 
-      && trait.name.includes('ghost tail') 
-      && traits.find(t => t.name.includes('mechanical'))
-    ) {
-      return {
-        ...trait,
-        weight: -1
-      }
-    }
-
     if (view === AvatarView.HEAD 
       && !hasBorder
       && ![TraitType.BACKGROUND, TraitType.BORDER].includes(trait.traitType)
@@ -540,11 +540,17 @@ export function createAvatarCanvasLayers(
     const newLayer = trait.images.sort((a: TraitImage, b: TraitImage) => {
       return (a?.weight || 0) - (b?.weight || 0);
     }).reduce((newLayers: CanvasLayer[], traitImage: TraitImage) => {
+      const h = trait.height || height || CANVAS_HEIGHT;
+      const w = trait.width || width || CANVAS_WIDTH;
+      const src = trait.generated ? trait.generated : `${(baseUrl || '').replace('$type', type.toLowerCase()).replace('$traitType', trait.traitType.toLowerCase())}${traitImage.uri}`;
+
+      const shouldBeCropped = isGhostTail && ((isTiger || isSkeleton || isTribal) && traitImage.weight === 100 || trait.traitType === TraitType.SKIN);
+
       return newLayers.concat([
         {
-          src: trait.generated ? trait.generated : `${(baseUrl || '').replace('$type', type.toLowerCase()).replace('$traitType', trait.traitType.toLowerCase())}${traitImage.uri}`,
-          height: trait.height || height || CANVAS_HEIGHT,
-          width: trait.width || width || CANVAS_WIDTH,
+          src,
+          height: h,
+          width: w,
           x: typeof trait.offsetX === 'number' ? trait.offsetX : 0,
           y: typeof trait.offsetY === 'number' ? trait.offsetY : 0,
           canvasCallbacks: canvasEffects,
@@ -555,7 +561,8 @@ export function createAvatarCanvasLayers(
           parentBackground: trait.parentBackground,
           stickerExempt: trait.traitType === TraitType.BORDER,
           stickerWidth: view === AvatarView.FULL ? 0.01 : 0.02,
-          label: trait.traitType
+          label: trait.traitType,
+          cropY: shouldBeCropped ? 0.64 : undefined
         }
       ])
     }, []);
