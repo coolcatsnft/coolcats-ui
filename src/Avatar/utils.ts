@@ -544,7 +544,10 @@ export function createAvatarCanvasLayers(
       const w = trait.width || width || CANVAS_WIDTH;
       const src = trait.generated ? trait.generated : `${(baseUrl || '').replace('$type', type.toLowerCase()).replace('$traitType', trait.traitType.toLowerCase())}${traitImage.uri}`;
 
-      const shouldBeCropped = isGhostTail && ((isTiger || isSkeleton || isTribal) && traitImage.weight === 100 || trait.traitType === TraitType.SKIN);
+      let cropY = undefined;
+      if (isGhostTail && ((isTiger || isSkeleton || isTribal) && traitImage.weight === 100 || trait.traitType === TraitType.SKIN)) {
+        cropY = 0.64;
+      }
 
       return newLayers.concat([
         {
@@ -562,7 +565,7 @@ export function createAvatarCanvasLayers(
           stickerExempt: trait.traitType === TraitType.BORDER,
           stickerWidth: view === AvatarView.FULL ? 0.01 : 0.02,
           label: trait.traitType,
-          cropY: shouldBeCropped ? 0.64 : undefined
+          cropY
         }
       ])
     }, []);
