@@ -2,7 +2,6 @@ export * from './constants';
 export * from './canvasUtils';
 export * from './Avatar/rules';
 export * from './Avatar/utils';
-export * from './GlobalStyle';
 
 export * from './LayeredCanvas';
 export * from './AvatarCanvas';
