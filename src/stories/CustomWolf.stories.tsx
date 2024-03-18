@@ -1,7 +1,7 @@
 import { Meta, StoryFn } from '@storybook/react';
 
 import AvatarCanvas from '../AvatarCanvas';
-import { Avatar, AvatarView, TraitRarity, TraitType } from '../Avatar/types';
+import { Avatar, AvatarView, TraitRarity, TraitRuleFunction, TraitType } from '../Avatar/types';
 import { WolfArgs, generateWolfTraits } from './shared';
 
 export default {
@@ -669,3 +669,38 @@ const TestTemplate4: StoryFn<typeof AvatarCanvas> = (args) => {
   )
 }
 export const WolfTest4 = TestTemplate4.bind({});
+
+const TestTemplate5: StoryFn<typeof AvatarCanvas> = (args) => {
+
+  const gentraits = generateWolfTraits(args) as any;
+  const traits = gentraits.concat(
+    [
+      {
+        type: Avatar.SHADOWWOLF,
+        view: AvatarView.FULL,
+        traitType: TraitType.BORDER,
+        name: 'cat cabal',
+        rarity: TraitRarity.COMMON,
+        images: [
+          {
+            uri: 'cat-cabal-sw.png'
+          }
+        ],
+        rules: [{
+          type: 'MUTATE_ALL',
+          fn: TraitRuleFunction.CABAL_PLACEMENT
+        }] as any
+      } as any
+    ]
+  );
+  
+  return (
+    <AvatarCanvas 
+      {...args}
+      traits={traits}
+      height={400}
+      width={400}
+    />
+  )
+}
+export const WolfCabal = TestTemplate5.bind({});

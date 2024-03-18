@@ -10,12 +10,19 @@ export const AvatarCanvas = forwardRef((props: AvatarCanvasConfig, ref: any) => 
   const { traits, height, children, reset, bordered, width, view, baseUrl, type, tokenId, crossHairs, onLoadLayers } = props;
 
   const [stateView, setStateView] = useState<AvatarView>(view);
+  const [stateTokenId, setStateTokenId] = useState<string>(tokenId || '');
 
   useEffect(() => {
     if (view) {
       setStateView(view);
     }
   }, [view]);
+
+  useEffect(() => {
+    if (tokenId) {
+      setStateTokenId(tokenId);
+    }
+  }, [tokenId]);
 
   return (
     <LayeredCanvas 
@@ -31,7 +38,7 @@ export const AvatarCanvas = forwardRef((props: AvatarCanvasConfig, ref: any) => 
         createAvatarCanvasLayers({
           view: stateView,
           type,
-          tokenId,
+          tokenId: stateTokenId,
           traits,
           height,
           width,

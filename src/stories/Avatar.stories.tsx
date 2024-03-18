@@ -642,6 +642,35 @@ const WolfChugTemplate: StoryFn<typeof AvatarCanvas> = (args) => {
 
 export const WolfMilkChug = WolfChugTemplate.bind({});
 
+const CabalCatTemplate: StoryFn<typeof AvatarCanvas> = (args) => {
+  return (
+    <AvatarCanvas 
+      {...args}
+      height={1000}
+      width={1000}
+      type={Avatar.CAT}
+      traits={Cat4710Traits.concat([{
+        type: Avatar.EXPLORER,
+        view: AvatarView.FULL,
+        traitType: TraitType.BORDER,
+        name: 'cat cabal',
+        rarity: TraitRarity.COMMON,
+        images: [
+          {
+            uri: 'cat-cabal-cc.png'
+          }
+        ],
+        rules: [{
+          type: 'MUTATE_ALL',
+          fn: TraitRuleFunction.CABAL_PLACEMENT
+        }] as any
+      }])}
+    />
+  )
+}
+
+export const CabalCat = CabalCatTemplate.bind({});
+
 const OfflineAvatarTemplate: StoryFn<typeof AvatarCanvas> = (args) => {
   return (
     <AvatarCanvas 

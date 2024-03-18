@@ -207,7 +207,26 @@ export const COMIC_CON_PLACEMENT = (trait: Trait, traits: Trait[], width: number
     offsetX: (width * 0.165) * ((type === Avatar.CAT && tokenId === '500') ? -1 : 1),
     offsetY: (height * 0.4) * ((type === Avatar.CAT && tokenId === '500') ? -1 : 1)
   }
-};
+}
+
+export const CABAL_PLACEMENT = (trait: Trait, traits: Trait[], width: number, height: number, tokenId?: string, type?: Avatar, view?: AvatarView) => {
+  if (trait.traitType === TraitType.BORDER || trait.traitType === TraitType.BACKGROUND || trait.traitType === TraitType.HAT) {
+    return trait;
+  }
+  
+  return {
+    trait: {
+      ...trait,
+      images: trait.images.concat(
+        trait.traitType === TraitType.BODY && type === Avatar.SHADOWWOLF ? [{ uri: 'sw-ears.png', weight: 6 }] : []
+      )
+    },
+    width: (width || 2000) * 1.9,
+    height: (height || 2000) * 1.9,
+    offsetX: (width * -0.45) * ((type === Avatar.CAT && tokenId === '500') ? -1 : 1),
+    offsetY: (height * (type === Avatar.SHADOWWOLF ? 0.04 : 0.06)) * ((type === Avatar.CAT && tokenId === '500') ? -1 : 1)
+  }
+}
 
 export const WOOT_PLACEMENT = (trait: Trait, traits: Trait[], width: number, height: number, tokenId?: string, type?: Avatar, view?: AvatarView) => {
   if (![TraitType.BODY, TraitType.FACE, TraitType.HAT].includes(trait.traitType)) {
@@ -441,7 +460,8 @@ export const mutations = {
   [TraitRuleFunction.FLIP_ACCESSORY]: FLIP_ACCESSORY,
   [TraitRuleFunction.FLIP_SIDEKICK]: FLIP_SIDEKICK,
   [TraitRuleFunction.HIDE_ARMS]: HIDE_ARMS,
-  [TraitRuleFunction.HIDE_CHEEKS]: HIDE_CHEEKS
+  [TraitRuleFunction.HIDE_CHEEKS]: HIDE_CHEEKS,
+  [TraitRuleFunction.CABAL_PLACEMENT]: CABAL_PLACEMENT
 } as TraitRuleFunctionMap;
 
 export default {
