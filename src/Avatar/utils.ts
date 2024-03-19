@@ -44,16 +44,9 @@ function evaluateRule(
   view?: AvatarView
 ) {
   let updatedTraits = traits;
-  if (trait.traitType === 'BODY') {
-    console.log(updatedTraits)
-  }
   return rules.map(r => {
     const fn = mutations[r.fn];
     if (typeof fn === 'function') {
-      if (trait.traitType === 'BODY') {
-        console.log(r.fn, updatedTraits)
-      }
-      
       const updatedTrait = fn(trait, updatedTraits, width, height, tokenId, type, view);
       updatedTraits = updatedTraits.filter(ut => ut.id === updatedTrait.id ? updatedTrait : ut);
 

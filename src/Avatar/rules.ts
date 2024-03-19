@@ -214,7 +214,7 @@ export const CABAL_PLACEMENT = (trait: Trait, traits: Trait[], width: number, he
     return trait;
   }
 
-  if (trait.traitType === TraitType.HAT && type !== Avatar.SHADOWWOLF) {
+  if (trait.traitType === TraitType.HAT) {
     return {
       ...trait,
       offsetX: -9999
@@ -223,7 +223,7 @@ export const CABAL_PLACEMENT = (trait: Trait, traits: Trait[], width: number, he
 
   return {
     ...trait,
-    images: trait.traitType === TraitType.HAT && type === Avatar.SHADOWWOLF ? [{ uri: 'https://cdn.avatar.coolcats.com/trait/shadowwolf/body/sw-ears.png', weight: 6 }] : trait.images,
+    background: type === Avatar.SHADOWWOLF && trait.traitType === TraitType.BODY ? '#231F20' : '',
     width: (width || 2000) * 1.9,
     height: (height || 2000) * 1.9,
     offsetX: (width * -0.45) * ((type === Avatar.CAT && tokenId === '500') ? -1 : 1),
