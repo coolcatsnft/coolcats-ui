@@ -4,14 +4,7 @@ import { CanvasLayer, CanvasConfig, generateLayeredCanvas, resolveImage } from "
 export const LayeredCanvas = forwardRef((props: CanvasConfig, ref: any) => {
   const [layers, setLayers] = useState<Array<CanvasLayer>>([]);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  const { layers: propsLayers, height, children, reset, bordered, width, onLoadLayers } = props;
-
-  useEffect(() => {
-    if (layers?.length > 0 && onLoadLayers) {
-      onLoadLayers(layers);
-    }
-  }, [layers, onLoadLayers])
+  const { layers: propsLayers, height, children, reset, width, onLoadLayers } = props;
   
   useEffect(() => {
     if (reset) {
@@ -31,6 +24,9 @@ export const LayeredCanvas = forwardRef((props: CanvasConfig, ref: any) => {
           return Promise.resolve(l);
       })).then((newLayers) => {
         setLayers(newLayers as any);
+        if (newLayers?.length > 0 && onLoadLayers) {
+          onLoadLayers(newLayers);
+        }
       });
     }
   }, [propsLayers, reset]);
