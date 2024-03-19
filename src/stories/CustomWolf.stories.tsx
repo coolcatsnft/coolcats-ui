@@ -671,28 +671,130 @@ const TestTemplate4: StoryFn<typeof AvatarCanvas> = (args) => {
 export const WolfTest4 = TestTemplate4.bind({});
 
 const TestTemplate5: StoryFn<typeof AvatarCanvas> = (args) => {
-
-  const gentraits = generateWolfTraits(args) as any;
-  const traits = gentraits.concat(
-    [
-      {
-        type: Avatar.SHADOWWOLF,
-        view: AvatarView.FULL,
-        traitType: TraitType.BORDER,
-        name: 'cat cabal',
-        rarity: TraitRarity.COMMON,
-        images: [
-          {
-            uri: 'cat-cabal-sw.png'
-          }
-        ],
-        rules: [{
-          type: 'MUTATE_ALL',
-          fn: TraitRuleFunction.CABAL_PLACEMENT
-        }] as any
-      } as any
-    ]
-  );
+  const traits = Wolftraits.concat([
+    {
+      "id": 292,
+      "name": "puffy coat sparkle",
+      "rarity": 1,
+      "type": "SHADOWWOLF",
+      "weight": null,
+      "traitType": "SHIRT",
+      "additional": false,
+      "displayName": "Puffy coat sparkle",
+      "tokenId": null,
+      "fromTokenId": null,
+      "toTokenId": null,
+      "contract": null,
+      "boundTo": {
+        "token_id": 5,
+        "token_type": "SHADOWWOLF"
+      },
+      "images": [
+        {
+          "uri": "puffy-coat-sparkle.png"
+        }
+      ],
+      "rules": [],
+      "sets": []
+    },
+    {
+      "id": 368,
+      "name": "cat costume",
+      "rarity": 1,
+      "type": "SHADOWWOLF",
+      "weight": null,
+      "traitType": "HAT",
+      "additional": false,
+      "displayName": "Cat costume",
+      "tokenId": null,
+      "fromTokenId": null,
+      "toTokenId": null,
+      "contract": null,
+      "boundTo": {
+        "token_id": 5,
+        "token_type": "SHADOWWOLF"
+      },
+      "images": [
+        {
+          "uri": "cat-costume.png"
+        }
+      ],
+      "rules": [],
+      "sets": []
+    },
+    {
+      "id": 405,
+      "name": "tired",
+      "rarity": 1,
+      "type": "SHADOWWOLF",
+      "weight": null,
+      "traitType": "FACE",
+      "additional": false,
+      "displayName": "Tired",
+      "tokenId": null,
+      "fromTokenId": null,
+      "toTokenId": null,
+      "contract": null,
+      "boundTo": {
+        "token_id": 5,
+        "token_type": "SHADOWWOLF"
+      },
+      "images": [
+        {
+          "uri": "tired.png"
+        }
+      ],
+      "rules": [],
+      "sets": []
+    },
+    {
+      "id": 1710,
+      "name": "ardi grey",
+      "rarity": 0,
+      "type": "SHADOWWOLF",
+      "weight": null,
+      "traitType": "BACKGROUND",
+      "additional": true,
+      "displayName": "Ardi Grey",
+      "tokenId": null,
+      "fromTokenId": null,
+      "toTokenId": null,
+      "contract": null,
+      "images": [
+        {
+          "uri": "ardigrey.png"
+        }
+      ],
+      "rules": [],
+      "sets": []
+    },
+    {
+      "id": 1929,
+      "name": "cat cabal",
+      "rarity": 0,
+      "type": "SHADOWWOLF",
+      "weight": null,
+      "traitType": "BORDER",
+      "additional": true,
+      "displayName": "Cat Cabal",
+      "tokenId": null,
+      "fromTokenId": null,
+      "toTokenId": null,
+      "contract": null,
+      "images": [
+        {
+          "uri": "cat-cabal-sw.png"
+        }
+      ],
+      "rules": [
+        {
+          "type": "MUTATE_ALL",
+          "fn": "CABAL_PLACEMENT"
+        }
+      ],
+      "sets": []
+    }
+  ] as any);
   
   return (
     <AvatarCanvas 

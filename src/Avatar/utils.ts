@@ -43,10 +43,21 @@ function evaluateRule(
   type?: Avatar,
   view?: AvatarView
 ) {
+  let updatedTraits = traits;
+  if (trait.traitType === 'BODY') {
+    console.log(updatedTraits)
+  }
   return rules.map(r => {
     const fn = mutations[r.fn];
     if (typeof fn === 'function') {
-      return fn(trait, traits, width, height, tokenId, type, view);
+      if (trait.traitType === 'BODY') {
+        console.log(r.fn, updatedTraits)
+      }
+      
+      const updatedTrait = fn(trait, updatedTraits, width, height, tokenId, type, view);
+      updatedTraits = updatedTraits.filter(ut => ut.id === updatedTrait.id ? updatedTrait : ut);
+
+      return updatedTrait;
     }
 
     return;
@@ -404,16 +415,20 @@ export function createAvatarCanvasLayers(
   
   rules.forEach(r => {
     evaldTraits = evaldTraits.map(
-      t => evaluateRule(
-        [r],
-        t,
-        evaldTraits,
-        width || CANVAS_WIDTH,
-        height || CANVAS_HEIGHT,
-        tokenId,
-        type,
-        view
-      )
+      t => {
+        const newTrait = evaluateRule(
+          [r],
+          t,
+          evaldTraits,
+          width || CANVAS_WIDTH,
+          height || CANVAS_HEIGHT,
+          tokenId,
+          type,
+          view
+        );
+
+        return newTrait;
+      }
     )
   });
 
@@ -542,7 +557,14 @@ export function createAvatarCanvasLayers(
     }).reduce((newLayers: CanvasLayer[], traitImage: TraitImage) => {
       const h = trait.height || height || CANVAS_HEIGHT;
       const w = trait.width || width || CANVAS_WIDTH;
-      const src = trait.generated ? trait.generated : `${(baseUrl || '').replace('$type', type.toLowerCase()).replace('$traitType', trait.traitType.toLowerCase())}${traitImage.uri}`;
+      let src = trait.generated as any;
+      if (!src) {
+        if (traitImage.uri.startsWith('https')) {
+          src = traitImage.uri;
+        } else {
+          src = `${(baseUrl || '').replace('$type', type.toLowerCase()).replace('$traitType', trait.traitType.toLowerCase())}${traitImage.uri}`;
+        }
+      }
 
       let cropY = undefined;
       if (isGhostTail && ((isTiger || isSkeleton || isTribal) && traitImage.weight === 100 || trait.traitType === TraitType.SKIN)) {

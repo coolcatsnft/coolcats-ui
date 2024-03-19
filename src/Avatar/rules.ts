@@ -210,17 +210,20 @@ export const COMIC_CON_PLACEMENT = (trait: Trait, traits: Trait[], width: number
 }
 
 export const CABAL_PLACEMENT = (trait: Trait, traits: Trait[], width: number, height: number, tokenId?: string, type?: Avatar, view?: AvatarView) => {
-  if (trait.traitType === TraitType.BORDER || trait.traitType === TraitType.BACKGROUND || trait.traitType === TraitType.HAT) {
+  if (trait.traitType === TraitType.BORDER || trait.traitType === TraitType.BACKGROUND) {
     return trait;
   }
-  
-  return {
-    trait: {
+
+  if (trait.traitType === TraitType.HAT && type !== Avatar.SHADOWWOLF) {
+    return {
       ...trait,
-      images: trait.images.concat(
-        trait.traitType === TraitType.BODY && type === Avatar.SHADOWWOLF ? [{ uri: 'sw-ears.png', weight: 6 }] : []
-      )
-    },
+      offsetX: -9999
+    }
+  }
+
+  return {
+    ...trait,
+    images: trait.traitType === TraitType.HAT && type === Avatar.SHADOWWOLF ? [{ uri: 'https://cdn.avatar.coolcats.com/trait/shadowwolf/body/sw-ears.png', weight: 6 }] : trait.images,
     width: (width || 2000) * 1.9,
     height: (height || 2000) * 1.9,
     offsetX: (width * -0.45) * ((type === Avatar.CAT && tokenId === '500') ? -1 : 1),
