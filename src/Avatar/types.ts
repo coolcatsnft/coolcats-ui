@@ -128,7 +128,7 @@ export type Trait = {
   parentBackground?: string;
   weight?: number;
   height?: number;
-  boundTo?: ApiToken;
+  boundTo?: ApiToken[];
   width?: number;
   offsetX?: number;
   offsetY?: number;
