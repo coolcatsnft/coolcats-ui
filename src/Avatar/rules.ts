@@ -104,7 +104,7 @@ const ROBES = [
   'robe white', 'robe king', 'robe blue', 'robe red', 'toga'
 ];
 const PANTS = [
-  'lederhosen', 'nurse', 'overalls yellow', 'overalls blue', 'overalls flannel', 'overalls pink', 'overalls red'
+  'lederhosen', 'nurse', 'overalls yellow', 'overalls blue', 'overalls flannel', 'overalls pink', 'overalls red', 'fishing waders grey', 'fishing waders green'
 ];
 const WOLFPANTS = [
   'overalls skull'
@@ -149,6 +149,22 @@ export const MOVE_PANTS_OVER_SHIRT = (trait: Trait, traits: Trait[]) => {
 
   return trait;
 };
+
+export const HAT_MUTATION = (trait: Trait, traits: Trait[]) => {
+  if (trait.traitType === TraitType.HAT 
+    && trait.name.replace(/-/g, ' ').includes('bucket hat') 
+    && traits.find(
+      t => t.traitType === TraitType.ACCESSORY && t.name.replace(/-/g, ' ').includes('fishing vest')
+    )
+  ) {
+    return {
+      ...trait,
+      weight: 9
+    }
+  }
+
+  return trait;
+}
 
 export const MOVE_SHIRTS_OVER_HATS = (trait: Trait, traits: Trait[]) => {
   if (trait.traitType === TraitType.SHIRT 
@@ -464,7 +480,8 @@ export const mutations = {
   [TraitRuleFunction.FLIP_SIDEKICK]: FLIP_SIDEKICK,
   [TraitRuleFunction.HIDE_ARMS]: HIDE_ARMS,
   [TraitRuleFunction.HIDE_CHEEKS]: HIDE_CHEEKS,
-  [TraitRuleFunction.CABAL_PLACEMENT]: CABAL_PLACEMENT
+  [TraitRuleFunction.CABAL_PLACEMENT]: CABAL_PLACEMENT,
+  [TraitRuleFunction.HAT_MUTATION]: HAT_MUTATION
 } as TraitRuleFunctionMap;
 
 export default {

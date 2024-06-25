@@ -312,7 +312,9 @@ export const hatTraits = [
   'lviii-hat-red-sw',
   'in-love',
   'cupid-hair',
-
+  'fishing-bucket-hat-grey-sw',
+  'fishing-bucket-hat-green-sw',
+  
   'x'
 ];
 
@@ -565,7 +567,9 @@ export const shirtTraits = [
   'lviii-tshirt-black',
   'lviii-tshirt-red',
   'scarf-endless-love',
-  'tshirt-lovestruck'
+  'tshirt-lovestruck',
+  'fishing-shirt-white',
+  'fishing-shirt-beige'
 ];
 
 export const faceTraits = [
@@ -715,7 +719,9 @@ export const pantsTraits = [
   'lviii-leggings-white',
   'lviii-leggings-gold',
   'boxers-much-love',
-  'cupid-pants'
+  'cupid-pants',
+  'fishing-waders-grey',
+  'fishing-waders-green'
 ];
 
 export const shoeTraits = [
@@ -889,7 +895,9 @@ export const backgrounds = [
 export const accessories = [
   '',
   'cupid bow',
-  'red balloon'
+  'red balloon',
+  'fishing-vest-green',
+  'fishing-vest-teal'
 ]
 
 export const WolfArgs = {

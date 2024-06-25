@@ -470,6 +470,13 @@ export function createAvatarCanvasLayers(
             type: TraitRuleType.MUTATE
           }
         ] : []
+      ).concat(
+        trait.traitType === TraitType.HAT ? [
+          {
+            fn: TraitRuleFunction.HAT_MUTATION,
+            type: TraitRuleType.MUTATE
+          }
+        ] : []
       )
     }
   }).map((trait: Trait) => {
