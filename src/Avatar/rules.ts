@@ -136,6 +136,7 @@ export const MOVE_PANTS_OVER_SHIRT = (trait: Trait, traits: Trait[]) => {
   if (trait.traitType === TraitType.PANTS 
     && (
       (trait.type === Avatar.CAT && PANTS.includes(trait.name.split('-').join(' ').toLowerCase()))
+      || (trait.type === Avatar.EXPLORER && PANTS.includes(trait.name.split('-').join(' ').toLowerCase()))
       || (trait.type === Avatar.SHADOWWOLF && WOLFPANTS.includes(trait.name.split('-').join(' ').toLowerCase()))
     ) && !traits.find(
       t => t.traitType === TraitType.SHIRT && ROBES.includes(t.name.split('-').join(' ').toLowerCase())
