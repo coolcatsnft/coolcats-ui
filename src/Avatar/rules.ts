@@ -107,7 +107,7 @@ const PANTS = [
   'lederhosen', 'nurse', 'overalls yellow', 'overalls blue', 'overalls flannel', 'overalls pink', 'overalls red', 'fishing waders grey', 'fishing waders green'
 ];
 const WOLFPANTS = [
-  'overalls skull'
+  'overalls skull', 'fishing waders grey', 'fishing waders green'
 ]
 const SHIRTS = [
   'dueler', 'scarf plaid', 'scarf red', 'chain', 'necklace flint', 'necklace jaw', 'necklace teeth'
